@@ -1,15 +1,11 @@
 #include "Object.h"
 #include "Game.h"
 
-Object::Object(Game* game){
-    delete_flag = 0;
-    my_game = game;
-    world_tick = my_game->getTick();
-    connect(world_tick, SIGNAL(timeout()), this, SLOT(delete_handler()));
-}
+extern Game* game;
 
-Game* Object::getGame(){
-    return my_game;
+Object::Object(){
+    delete_flag = 0;
+    connect(game->getTick(), SIGNAL(timeout()), this, SLOT(update_handler()));
 }
 
 void Object::remove(){
@@ -21,7 +17,7 @@ void Object::update()
 
 }
 
-void Object::delete_handler(){
+void Object::update_handler(){
     update();
     if(delete_flag){
         delete this;

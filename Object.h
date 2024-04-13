@@ -9,16 +9,12 @@
 class Object : public QObject, public QGraphicsRectItem{
     Q_OBJECT
 public:
-    Object(Game* game);
-    Game* getGame();
-    void set_world_tick(QTimer* timer);
+    Object();
     void remove();
     virtual void update();
 private slots:
-    void delete_handler();
+    void update_handler();
 private:
-    QTimer* world_tick;
-    Game* my_game;
     bool delete_flag;
 };
 

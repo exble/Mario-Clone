@@ -6,7 +6,7 @@
 
 class Mario : public Object{
 public:
-    Mario(Game* game);
+    Mario();
     void update();
     void keyPressEvent(QKeyEvent* event);
 private:

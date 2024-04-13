@@ -2,8 +2,7 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-Mario::Mario(Game* game)
-:Object(game){
+Mario::Mario(): Object(){
     this->setFlag(QGraphicsItem::ItemIsFocusable);
     this->setFocus();
     key = Key::NONE;
@@ -34,16 +33,27 @@ void Mario::keyPressEvent(QKeyEvent* event){
 
 void Mario::update(){
     move();
+    //if(x()<0 || x()>getGame()->)
 }
 
 void Mario::move(){
     if(key_pressed){
         //qDebug() << "key_pressed" << endl;
-        if(key == Key::A){
+        switch (key){
+        case Key::W :
+            setPos(x(), y()-10);
+            break;
+        case Key::A :
             setPos(x()-10, y());
-        }
-        else if (key == Key::D){
+            break;
+        case Key::S :
+            setPos(x(), y()+10);
+            break;
+        case Key::D :
             setPos(x()+10, y());
+            break;
+        default:
+            break;
         }
     }
     key_pressed = 0;
