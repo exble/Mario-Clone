@@ -1,0 +1,74 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>image/background.png</file>
+        <file>image/bullet.png</file>
+        <file>image/characters.png</file>
+        <file>image/flower1.1.png</file>
+        <file>image/flower1.2.png</file>
+        <file>image/flower1.3.png</file>
+        <file>image/flower1.4.png</file>
+        <file>image/flower1.5.png</file>
+        <file>image/flower1.6.png</file>
+        <file>image/forest1.png</file>
+        <file>image/Ltortoise1.png</file>
+        <file>image/Ltortoise2.png</file>
+        <file>image/object1.png</file>
+        <file>image/object2.png</file>
+        <file>image/Rtortoise1.png</file>
+        <file>image/Rtortoise2.png</file>
+        <file>image/shell1.png</file>
+        <file>image/shell2.png</file>
+        <file>image/shell3.png</file>
+        <file>image/shell4.png</file>
+        <file>image/start_btn.png</file>
+        <file>image/start_screen.png</file>
+        <file>image/super star.png</file>
+        <file>image/tower1.png</file>
+        <file>image/toxic mushroom1.png</file>
+        <file>image/toxic mushroom2.png</file>
+        <file>image/toxic mushroom3.png</file>
+        <file>image/brick/box brick.png</file>
+        <file>image/brick/broken brick.png</file>
+        <file>image/brick/floor brick.png</file>
+        <file>image/brick/normal brick.png</file>
+        <file>image/brick/stone brick.png</file>
+        <file>image/brick/water pipe.png</file>
+        <file>image/item/coin.png</file>
+        <file>image/item/Fire Flower.png</file>
+        <file>image/item/flag.png</file>
+        <file>image/item/flag-pole.png</file>
+        <file>image/item/super mushroom.png</file>
+        <file>image/Mario_big/b_mario_die.png</file>
+        <file>image/Mario_big/mario_L_jump1.png</file>
+        <file>image/Mario_big/mario_L_jump2.png</file>
+        <file>image/Mario_big/mario_L_jump3.png</file>
+        <file>image/Mario_big/mario_L_jump4.png</file>
+        <file>image/Mario_big/mario_L_run0.png</file>
+        <file>image/Mario_big/mario_L_run1.png</file>
+        <file>image/Mario_big/mario_L_run2.png</file>
+        <file>image/Mario_big/mario_L_stand.png</file>
+        <file>image/Mario_big/mario_R_jump1.png</file>
+        <file>image/Mario_big/mario_R_jump2.png</file>
+        <file>image/Mario_big/mario_R_jump3.png</file>
+        <file>image/Mario_big/mario_R_jump4.png</file>
+        <file>image/Mario_big/mario_R_run0.png</file>
+        <file>image/Mario_big/mario_R_run1.png</file>
+        <file>image/Mario_big/mario_R_run2.png</file>
+        <file>image/Mario_big/mario_R_stand.png</file>
+        <file>image/Mario_big/mario_stop_L.png</file>
+        <file>image/Mario_big/mario_stop_R.png</file>
+        <file>image/Mario_small/s_mario_die.png</file>
+        <file>image/Mario_small/s_mario_jump1_L.png</file>
+        <file>image/Mario_small/s_mario_jump1_R.png</file>
+        <file>image/Mario_small/s_mario_jump2_L.png</file>
+        <file>image/Mario_small/s_mario_jump2_R.png</file>
+        <file>image/Mario_small/s_mario_run1_L.png</file>
+        <file>image/Mario_small/s_mario_run1_R.png</file>
+        <file>image/Mario_small/s_mario_run2_L.png</file>
+        <file>image/Mario_small/s_mario_run2_R.png</file>
+        <file>image/Mario_small/s_mario_stand_L.png</file>
+        <file>image/Mario_small/s_mario_stand_R.png</file>
+        <file>image/Mario_small/s_mario_stop_L.png</file>
+        <file>image/Mario_small/s_mario_stop_R.png</file>
+    </qresource>
+</RCC>
