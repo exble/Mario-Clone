@@ -1,15 +1,16 @@
 #include <QApplication>
 #include "Game.h"
 
+//game is in global so it can be accesed easily
 Game* game;
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    game = new Game(800,600);
+    game = new Game();
+    game->start();
 
-    game->view();
-    game->init();
+
     return app.exec();
 }

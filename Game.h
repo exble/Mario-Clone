@@ -5,24 +5,32 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include <QObject>
+#include "Mario.h"
+#include "Block.h"
 
 class Game : public QObject{
     Q_OBJECT
 public:
-    Game(int width, int height);
+    Game();
     void setSize(int width, int height);
-    void view();
     QTimer* getTick() const;
-    void init();
     int getWidth() const;
     int getHeight() const;
+
+    void start();
+    Mario *getPlayer() const;
+
+    QGraphicsScene *getScene() const;
+
+    QGraphicsView *getView() const;
 
 private:
     int width;
     int height;
     QTimer* tick;
-    QGraphicsScene* game_scene ;
-    QGraphicsView* game_view;
+    Mario* player;
+    QGraphicsScene* scene;
+    QGraphicsView* view;
 private slots:
     void update();
 };

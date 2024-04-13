@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/image">
+    <qresource prefix="/images">
         <file>image/background.png</file>
         <file>image/bullet.png</file>
         <file>image/characters.png</file>

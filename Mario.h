@@ -2,6 +2,7 @@
 #define MARIO_H
 
 #include "Object.h"
+#include "Constants.h"
 #include <QKeyEvent>
 
 class Mario : public Object{
@@ -11,9 +12,13 @@ public:
     void keyPressEvent(QKeyEvent* event);
 private:
     void move();
-    enum class Facing{Left, Right};
+    void update_image();
+
+    enum class State{Jumping, Still, Walking};
     enum class Key{W, A, S, D, NONE};
     Key key;
+    Facing faceTo;
+    State state;
     bool key_pressed;
 };
 #endif // MARIO_H

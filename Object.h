@@ -2,19 +2,20 @@
 #define OBJECT_H
 
 #include <QTime>
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QObject>
-#include "Game.h"
 
-class Object : public QObject, public QGraphicsRectItem{
+class Object : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     Object();
     void remove();
+    void setCollision(bool sel);
     virtual void update();
 private slots:
     void update_handler();
 private:
+    bool is_collide;
     bool delete_flag;
 };
 
