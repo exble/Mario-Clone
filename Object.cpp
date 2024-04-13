@@ -18,6 +18,7 @@ void Object::setCollision(bool sel)
     is_collide = sel;
 }
 
+//this function will run for every tick
 void Object::update()
 {
 
