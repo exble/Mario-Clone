@@ -18,7 +18,7 @@ SOURCES += \
 
 HEADERS += \
     Block.h \
-    Constants.h \
+    Config.h \
     Game.h \
     Map.h \
     Mario.h \

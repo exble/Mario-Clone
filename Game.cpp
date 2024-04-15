@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "Constants.h"
+#include "Config.h"
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QTimer>

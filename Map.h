@@ -1,7 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "Constants.h"
+#include "Config.h"
 #include "Game.h"
 #include <vector>
 using namespace std;
