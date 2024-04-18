@@ -34,11 +34,15 @@ void Game::start()
 
     //init game
     player = new Mario();
+    player->setPos(500, 500);
     scene->addItem(player);
     player->setFocus();
 
     Block* block = new Block(Blocks::Box);
+    block->setPos(500,500);
     scene->addItem(block);
+
+
 }
 
 void Game::update(){

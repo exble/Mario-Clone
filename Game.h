@@ -11,6 +11,7 @@
 class Game : public QObject{
     Q_OBJECT
 public:
+
     Game();
     void setSize(int width, int height);
     QTimer* getTick() const;

@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <QGraphicsPixmapItem>
 #include <QObject>
+#include "Config.h"
 
 class Object : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT

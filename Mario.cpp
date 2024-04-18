@@ -2,14 +2,14 @@
 #include <QDebug>
 #include "Mario.h"
 
-Mario::Mario():
-    max_speed(MAX_SPEED){
+Mario::Mario()
+    {
     this->setFlag(QGraphicsItem::ItemIsFocusable);
     this->setFocus();
     setPixmap(QPixmap(":/images/image/Mario_big/mario_L_stand.png"));
     key = Key::NONE;
     faceTo = Facing::Left;
-    state = State::Walking;
+    state = State::Stop;
     key_pressed = false;
     //init timer = 20ms
     key_holding_timer = new QTimer();
@@ -29,7 +29,7 @@ Mario::Mario():
 
 void Mario::keyPressEvent(QKeyEvent* event){
     //qDebug() << "key_register" << endl;
-    key_pressed = 1;
+    key_pressed = true;
     if(event->key() == Qt::Key_W){
         key = Key::W;
     }
@@ -49,67 +49,80 @@ void Mario::keyPressEvent(QKeyEvent* event){
 
 
 void Mario::update(){
+    // register key input
     if(key_pressed){
-        qDebug() << "Key Pressed";
-        //key board input register every 100ms
-        key_holding_timer->start(100);
+        key_pressed = false;
+        // qDebug() << "Key Pressed";
+        //key board input register every 20ms
+        key_holding_timer->start(20);
         key_holding = true;
     }
     if(key_holding_timer->isActive() == false){
         key_holding = false;
     }
 
+    // update xx and vy accoding to key input
+    controlHandler();
 
+    // with vx determine facing and state
+    stateUpdate();
 
-    //change Mario State
+    // update image according to facing and state
+    update_image();
 
-    //move Marion
+    // move according to Mario's vx and vy
     move();
-
-
-    // update the moving information
+    qDebug() << "vx: " << vx() << "vy: " << vy();
 
 }
 
-void Mario::move(){
+void Mario::stateUpdate(){
+    if(vy() > 0){
+        state = State::Jumping;
+    }
+    else if(vy() < 0){
+        state = State::Falling;
+    }
+    if(vx() == 0){
+        state = State::Stop;
+    }
+    else{
+        state = State::Running;
+    }
+    if(vx() > 0){
+        faceTo = Facing::Right;
+    }
+    else if(vx() < 0){
+        faceTo = Facing::Left;
+    }
+}
+
+void Mario::controlHandler(){
     //move according to keyboard input
     if(key_holding){
-        qDebug() << "key_holding";
+        //qDebug() << "key_holding";
         switch (key){
         case Key::W :
-            setPos(x(), y()-5);
+            setVy(vy() + 2);
             break;
         case Key::A :
-            faceTo = Facing::Left;
-            state = State::Walking;
-            update_image();
-            setPos(x()-5, y());
-
+            setVx(vx() - 2);
             break;
         case Key::S :
-            setPos(x(), y()+5);
+            setVy(vy() - 2);
             break;
         case Key::D :
-            faceTo = Facing::Right;
-            state = State::Walking;
-            update_image();
-            setPos(x()+5, y());
-
+            setVx(vx() + 2);
             break;
         default:
             break;
         }
     }
-    else{
-        state = State::Still;
-        update_image();
-    }
-    key_pressed = false;
 }
 
 void Mario::update_image(){
     //change image according to state and facing
-    if(state == State::Still){
+    if(state == State::Stop){
         if(faceTo == Facing::Left){
             setPixmap(QPixmap(":/images/image/Mario_big/mario_L_stand.png"));
         }
@@ -117,7 +130,7 @@ void Mario::update_image(){
             setPixmap(QPixmap(":/images/image/Mario_big/mario_R_stand.png"));
         }
     }
-    else if (state == State::Walking){
+    else if (state == State::Running){
         if(walking_state == walking_annimation_L.size()){
             walking_state = 0;
         }
@@ -136,4 +149,17 @@ void Mario::update_image(){
     else if (state == State::Jumping){
 
     }
+    else if (state == State::Falling){
+
+    }
+}
+
+void Mario::gravity()
+{
+    setVy(vy() - SEC_TO_TICK(GRAVITATIONAL_ACCELERATION_PER_SEC) );
+}
+
+void Mario::friction()
+{
+
 }

@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     Block.cpp \
+    Entity.cpp \
     Game.cpp \
     Map.cpp \
     Mario.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     Block.h \
     Config.h \
+    Entity.h \
     Game.h \
     Map.h \
     Mario.h \
