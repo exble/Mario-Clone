@@ -12,6 +12,7 @@ SOURCES += \
     Block.cpp \
     Entity.cpp \
     Game.cpp \
+    Hitbox.cpp \
     Map.cpp \
     Mario.cpp \
     Object.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     Config.h \
     Entity.h \
     Game.h \
+    Hitbox.h \
     Map.h \
     Mario.h \
     Object.h

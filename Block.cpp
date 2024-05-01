@@ -24,3 +24,26 @@ Block::Block(Blocks block_type)
         break;
     }
 }
+
+/*
+QRectF Block::hitbox(char x)
+{
+    //get hitbox
+    QRectF boundingBox = this ->boundingRect();
+    QRectF blocktopRect(boundingBox.topLeft(), QPointF(boundingBox.topRight().x(), boundingBox.topRight().y()));
+    QRectF blockbottomRect(QPointF(boundingBox.bottomLeft().x() , boundingBox.bottomLeft().y()), boundingBox.bottomRight());
+    QRectF blockleftRect(QPointF(boundingBox.topLeft().x() , boundingBox.topLeft().y()), boundingBox.bottomLeft());
+    QRectF blockrightRect(QPointF(boundingBox.topRight().x() , boundingBox.topRight().y()), boundingBox.bottomRight());
+
+    if(x=='t')
+        return blocktopRect;
+    if(x=='b')
+        return blockbottomRect;
+    if(x=='l')
+        return blockleftRect;
+    if(x=='r')
+        return blockrightRect;
+
+    return blockrightRect;
+}*/
+

@@ -14,6 +14,7 @@
 
 enum class Blocks{Box, Broken, Floor, Normal, Stone, Pipe};
 
+enum class Subhitbox{Top, Bottom, Left, Right};
 
 
 #endif // CONFIG_H

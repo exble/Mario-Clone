@@ -17,7 +17,8 @@ public:
     QTimer* getTick() const;
     int getWidth() const;
     int getHeight() const;
-
+    QGraphicsScene* scene;
+    QGraphicsView* view;
     void start();
     Mario *getPlayer() const;
 
@@ -30,8 +31,8 @@ private:
     int height;
     QTimer* tick;
     Mario* player;
-    QGraphicsScene* scene;
-    QGraphicsView* view;
+
+    Block* bl;
 private slots:
     void update();
 };

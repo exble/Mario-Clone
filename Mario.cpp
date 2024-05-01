@@ -1,6 +1,10 @@
 #include <QKeyEvent>
 #include <QDebug>
 #include "Mario.h"
+#include "Game.h"
+
+
+extern Game* game;
 
 Mario::Mario()
     {
@@ -15,6 +19,8 @@ Mario::Mario()
     key_holding_timer = new QTimer();
     key_holding_timer->setSingleShot(true);
     key_holding = false;
+    qDebug() << (int32_t)this;
+    //hitbox = new Hitbox(this);
 
     walking_annimation_L = {":/images/image/Mario_big/mario_L_run0.png",
                             ":/images/image/Mario_big/mario_L_run1.png",
@@ -60,7 +66,7 @@ void Mario::update(){
     if(key_holding_timer->isActive() == false){
         key_holding = false;
     }
-
+    gravity();
     // update xx and vy accoding to key input
     controlHandler();
 
@@ -73,6 +79,14 @@ void Mario::update(){
     // move according to Mario's vx and vy
     move();
     qDebug() << "vx: " << vx() << "vy: " << vy();
+
+    //get hitbox
+    QRectF boundingBox = this ->boundingRect();
+    //saperate hitbox
+    QRectF playertopRect(boundingBox.topLeft(), QPointF(boundingBox.topRight().x(), boundingBox.topRight().y() ));
+    QRectF playerbottomRect(QPointF(boundingBox.bottomLeft().x() , boundingBox.bottomLeft().y()), boundingBox.bottomRight());
+    QRectF playerleftRect(QPointF(boundingBox.topLeft().x() , boundingBox.topLeft().y()), boundingBox.bottomLeft());
+    QRectF playerrightRect(QPointF(boundingBox.topRight().x() , boundingBox.topRight().y()), boundingBox.bottomRight());
 
 }
 
@@ -163,3 +177,39 @@ void Mario::friction()
 {
 
 }
+/*
+QRectF Mario::hitbox( char x)
+{
+    get hitbo
+    QRectF boundingBox = this ->boundingRect();
+    //saperate hitbox
+    QRectF playertopRect(boundingBox.topLeft(), QPointF(boundingBox.topRight().x(), boundingBox.topRight().y() ));
+    QRectF playerbottomRect(QPointF(boundingBox.bottomLeft().x() , boundingBox.bottomLeft().y()), boundingBox.bottomRight());
+    QRectF playerleftRect(QPointF(boundingBox.topLeft().x() , boundingBox.topLeft().y()), boundingBox.bottomLeft());
+    QRectF playerrightRect(QPointF(boundingBox.topRight().x() , boundingBox.topRight().y()), boundingBox.bottomRight());
+
+
+    QGraphicsRectItem *playerTopBox = new QGraphicsRectItem(playertopRect);
+    QGraphicsRectItem *playerBottomBox = new QGraphicsRectItem(playerbottomRect);
+    QGraphicsRectItem *playerLeftBox = new QGraphicsRectItem(playerleftRect);
+    QGraphicsRectItem *playerRightBox = new QGraphicsRectItem(playerrightRect);
+
+
+
+    game->scene->addItem(playerTopBox);
+    game->scene->addItem(playerBottomBox);
+    game->scene->addItem(playerLeftBox);
+    game->scene->addItem(playerRightBox);
+
+    if(x=='t')
+        return playertopRect;
+    if(x=='b')
+        return playerbottomRect;
+    if(x=='l')
+        return playerleftRect;
+    if(x=='r')
+        return playerrightRect;
+
+    return playertopRect;
+}
+*/
