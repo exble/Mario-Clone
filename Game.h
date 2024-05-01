@@ -28,6 +28,7 @@ public:
     void updateBlockHitbox();
     void traceMario();
     void checkCollision();
+    QList<Block*> BlockList;
     QList<QRectF> Righthitbox;
     QList<QRectF> Lefthitbox;
     QList<QRectF> Tophitbox;
@@ -43,9 +44,6 @@ private:
     int height;
     QTimer* tick;
     Mario* player;
-
-    Block* bl;
-    Block* bl2;
 private slots:
     void update();
 };

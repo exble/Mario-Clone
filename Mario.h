@@ -12,13 +12,15 @@ public:
     void keyPressEvent(QKeyEvent* event);
     QRectF hitbox(char);
 
+    void setState(State newState);
+
 private:
     void controlHandler();
     void stateUpdate();
     void update_image();
     void gravity();
     void friction();
-    enum class State{Jumping, Falling, Stop, Running};
+
     enum class Key{W, A, S, D, NONE};
     QList<QString> walking_annimation_L;
     QList<QString> walking_annimation_R;

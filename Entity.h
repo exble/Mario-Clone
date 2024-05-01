@@ -10,15 +10,15 @@ public:
     // Right for positive vx, Up for positive vy
     void move();
 
-    int vx() const;
-    int vy() const;
+    float vx() const;
+    float vy() const;
 
-    void setVx(int newVx);
-    void setVy(int newVy);
-    void setSpeed(int Vx, int Vy);
+    void setVx(float newVx);
+    void setVy(float newVy);
+    void setSpeed(float Vx, float Vy);
     enum class Facing{Left, Right};
 private:
-    int _vx, _vy;
+    float _vx, _vy;
 };
 
 #endif // ENTITY_H

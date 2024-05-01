@@ -41,13 +41,21 @@ void Game::start()
     player->setFocus();
     //player->hitbox = new Hitbox(player);
 
-
+    Block* bl;
     bl = new Block(Blocks::Box);
     bl->setPos(500,250);
     scene->addItem(bl);
-    bl2 = new Block(Blocks::Floor);
-    bl2->setPos(400,250);
-    scene->addItem(bl2);
+    BlockList.push_back(bl);
+    bl = new Block(Blocks::Floor);
+    bl->setPos(400,250);
+    scene->addItem(bl);
+    BlockList.push_back(bl);
+    for(int i = 0; i < 30; i++){
+        Block* m_block = new Block(Blocks::Floor);
+        BlockList.push_back(m_block);
+        m_block->setPos(i*50, 500);
+        scene->addItem(m_block);
+    }
 }
 
 void Game::update(){
@@ -99,14 +107,12 @@ void Game::updateBlockHitbox()
     Lefthitbox.clear();
     Tophitbox.clear();
     Bottomhitbox.clear();
-    Righthitbox.push_back( bl->hitbox('r'));
-    Lefthitbox.push_back( bl->hitbox('l'));
-    Tophitbox.push_back( bl->hitbox('t'));
-    Bottomhitbox.push_back( bl->hitbox('b'));
-    Righthitbox.push_back( bl2->hitbox('r'));
-    Lefthitbox.push_back( bl2->hitbox('l'));
-    Tophitbox.push_back( bl2->hitbox('t'));
-    Bottomhitbox.push_back( bl2->hitbox('b'));
+    foreach(Block* m_block, BlockList){
+        Righthitbox.push_back(m_block->hitbox('r'));
+        Lefthitbox.push_back( m_block->hitbox('l'));
+        Tophitbox.push_back( m_block->hitbox('t'));
+        Bottomhitbox.push_back( m_block->hitbox('b'));
+    }
 }
 void Game::traceMario()
 {
@@ -136,7 +142,8 @@ void Game::checkCollision()
     {
         if (rect.intersects(playerBottomRect) && player->vy() < 0)
         {
-                player->setVy(0);
+            player->setVy(0);
+            player->setState(State::Stop);
         }
     }
     foreach (QRectF rect, Bottomhitbox)

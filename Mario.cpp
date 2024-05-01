@@ -21,12 +21,10 @@ Mario::Mario()
     key_holding = false;
     qDebug() << (int32_t)this;
 
-    walking_annimation_L = {":/images/image/Mario_big/mario_L_run0.png",
-                            ":/images/image/Mario_big/mario_L_run1.png",
-                            ":/images/image/Mario_big/mario_L_run2.png"};
-    walking_annimation_R = {":/images/image/Mario_big/mario_R_run0.png",
-                            ":/images/image/Mario_big/mario_R_run1.png",
-                            ":/images/image/Mario_big/mario_R_run2.png"};
+    walking_annimation_L = {":/images/image/Mario_small/s_mario_run1_L.png",
+                            ":/images/image/Mario_small/s_mario_run2_L.png"};
+    walking_annimation_R = {":/images/image/Mario_small/s_mario_run1_R.png",
+                            ":/images/image/Mario_small/s_mario_run2_R.png"};
     walking_state = 0;
     animation_counter = 0;
     setCollision(true);
@@ -59,13 +57,19 @@ void Mario::update(){
         key_pressed = false;
         // qDebug() << "Key Pressed";
         //key board input register every 20ms
-        key_holding_timer->start(20);
+        key_holding_timer->start(300);
         key_holding = true;
     }
     if(key_holding_timer->isActive() == false){
         key_holding = false;
     }
-    gravity();
+
+    if(!key_holding){
+        friction();
+    }
+    if(state == State::Jumping || state == State::Falling){
+        gravity();
+    }
     // update xx and vy accoding to key input
     controlHandler();
 
@@ -96,7 +100,7 @@ void Mario::stateUpdate(){
     else if(vy() < 0){
         state = State::Falling;
     }
-    if(vx() == 0){
+    else if(vx() == 0 && vy() == 0){
         state = State::Stop;
     }
     else{
@@ -117,6 +121,7 @@ void Mario::controlHandler(){
         switch (key){
         case Key::W :
             setVy(vy() + 2);
+            state = State::Jumping;
             break;
         case Key::A :
             setVx(vx() - 2);
@@ -137,10 +142,10 @@ void Mario::update_image(){
     //change image according to state and facing
     if(state == State::Stop){
         if(faceTo == Facing::Left){
-            setPixmap(QPixmap(":/images/image/Mario_big/mario_L_stand.png"));
+            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_L.png"));
         }
         else{
-            setPixmap(QPixmap(":/images/image/Mario_big/mario_R_stand.png"));
+            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_R.png"));
         }
     }
     else if (state == State::Running){
@@ -174,5 +179,19 @@ void Mario::gravity()
 
 void Mario::friction()
 {
+    if(abs(vx()) < EPSILON){
+        setVx(0);
+    }
+    else if(vx() > 0){
+        setVx(vx()-0.1);
+    }
+    else if(vx() < 0){
+        setVx(vx()+0.1);
+    }
+    setVx(0.99*vx());
+}
 
+void Mario::setState(State newState)
+{
+    state = newState;
 }

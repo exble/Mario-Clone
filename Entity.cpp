@@ -12,17 +12,17 @@ void Entity::move()
     setPos(x() + _vx,y() - _vy);
 }
 
-int Entity::vx() const
+float Entity::vx() const
 {
     return _vx;
 }
 
-int Entity::vy() const
+float Entity::vy() const
 {
     return _vy;
 }
 
-void Entity::setVx(int newVx)
+void Entity::setVx(float newVx)
 {
     bool sign;
     if(newVx >= 0){
@@ -37,7 +37,7 @@ void Entity::setVx(int newVx)
     _vx = newVx;
 }
 
-void Entity::setVy(int newVy)
+void Entity::setVy(float newVy)
 {
     bool sign;
     if(newVy >= 0){
@@ -52,7 +52,7 @@ void Entity::setVy(int newVy)
     _vy = newVy;
 }
 
-void Entity::setSpeed(int Vx, int Vy)
+void Entity::setSpeed(float Vx, float Vy)
 {
     setVx(Vx);
     setVy(Vy);
