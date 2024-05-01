@@ -25,15 +25,14 @@ Block::Block(Blocks block_type)
     }
 }
 
-/*
+
 QRectF Block::hitbox(char x)
 {
     //get hitbox
-    QRectF boundingBox = this ->boundingRect();
-    QRectF blocktopRect(boundingBox.topLeft(), QPointF(boundingBox.topRight().x(), boundingBox.topRight().y()));
-    QRectF blockbottomRect(QPointF(boundingBox.bottomLeft().x() , boundingBox.bottomLeft().y()), boundingBox.bottomRight());
-    QRectF blockleftRect(QPointF(boundingBox.topLeft().x() , boundingBox.topLeft().y()), boundingBox.bottomLeft());
-    QRectF blockrightRect(QPointF(boundingBox.topRight().x() , boundingBox.topRight().y()), boundingBox.bottomRight());
+    QRectF blocktopRect(this->x(), this->y(), this->boundingRect().width(), 1);
+    QRectF blockbottomRect(this->x(), this->y() + this->boundingRect().height() - 1, this->boundingRect().width(), 1);
+    QRectF blockleftRect(this->x(), this->y(), 1, this->boundingRect().height());
+    QRectF blockrightRect(this->x() + this->boundingRect().width() - 1, this->y(), 1, this->boundingRect().height());
 
     if(x=='t')
         return blocktopRect;
@@ -45,5 +44,5 @@ QRectF Block::hitbox(char x)
         return blockrightRect;
 
     return blockrightRect;
-}*/
+}
 

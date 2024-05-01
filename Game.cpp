@@ -8,6 +8,8 @@
 #include <QImage>
 #include <QBrush>
 #include <QDebug>
+#include <QList>
+#include <QRect>
 Game::Game(){
 
 }
@@ -46,8 +48,6 @@ void Game::start()
     //bl->hitbox = new Hitbox(bl);
 
 
-
-
 }
 
 void Game::update(){
@@ -55,17 +55,18 @@ void Game::update(){
 
 
     //saperated hitbox
-    QRectF blTopRect(bl->x(), bl->y(), bl->boundingRect().width(), 1);
+    /*QRectF blTopRect(bl->x(), bl->y(), bl->boundingRect().width(), 1);
     QRectF blBottomRect(bl->x(), bl->y() + bl->boundingRect().height() - 1, bl->boundingRect().width(), 1);
     QRectF blLeftRect(bl->x(), bl->y(), 1, bl->boundingRect().height());
-    QRectF blRightRect(bl->x() + bl->boundingRect().width() - 1, bl->y(), 1, bl->boundingRect().height());
+    QRectF blRightRect(bl->x() + bl->boundingRect().width() - 1, bl->y(), 1, bl->boundingRect().height());*/
 
 
     //saperated hitbox
-    QRectF playerTopRect(player->x(), player->y(), player->boundingRect().width(), 5);
-    QRectF playerLeftRect(player->x()+10, player->y(), 5, player->boundingRect().height());
-    QRectF playerRightRect(player->x() + player->boundingRect().width()-10 , player->y(), 5, player->boundingRect().height());
-    QRectF playerBottomRect(player->x(), player->y() + player->boundingRect().height() -5 , player->boundingRect().width(), 5);
+    QRectF playerTopRect(player->x()+1, player->y(), player->boundingRect().width()-2, 5);
+    QRectF playerBottomRect(player->x()+1, player->y() + player->boundingRect().height() -5 , player->boundingRect().width()-2, 5);
+    QRectF playerLeftRect(player->x()+10, player->y(), 5, player->boundingRect().height()-1);
+    QRectF playerRightRect(player->x() + player->boundingRect().width()-10 , player->y(), 5, player->boundingRect().height()-1);
+
     qDebug() << "x: " << player->x() << "y: " << player->y();
 
     /*QGraphicsRectItem *playerTopBox = new QGraphicsRectItem(playerTopRect);
@@ -79,25 +80,57 @@ void Game::update(){
     scene->addItem(playerBottomBox);
     scene->addItem(playerLeftBox);
     scene->addItem(playerRightBox);*/
-    if (blTopRect.intersects(playerBottomRect) && player->vy() < 0)
+    /*if (bl->hitbox('t').intersects(playerBottomRect) && player->vy() < 0)
     {
-        // 停止玩家的垂直速度
         player->setVy(0);
     }
-    if (blLeftRect.intersects(playerRightRect) && player->vx() > 0)
+    if (bl->hitbox('l').intersects(playerRightRect) && player->vx() > 0)
     {
-        // 停止玩家的垂直速度
         player->setVx(0);
     }
-    if (playerTopRect.intersects(blBottomRect) && player->vy() > 0)
+    if (playerTopRect.intersects(bl->hitbox('b')) && player->vy() > 0)
     {
-        // 停止玩家的垂直速度
         player->setVy(0);
     }
-    if (playerLeftRect.intersects(blRightRect) && player->vx() < 0)
+    if (playerLeftRect.intersects(bl->hitbox('r')) && player->vx() < 0)
     {
-        // 停止玩家的垂直速度
         player->setVx(0);
+    }*/
+    QList<QRectF> Righthitbox;
+    QList<QRectF> Lefthitbox;
+    QList<QRectF> Tophitbox;
+    QList<QRectF> Bottomhitbox;
+    Righthitbox.push_back( bl->hitbox('r'));
+    Lefthitbox.push_back( bl->hitbox('l'));
+    Tophitbox.push_back( bl->hitbox('t'));
+    Bottomhitbox.push_back( bl->hitbox('b'));
+    foreach (QRectF rect, Righthitbox)
+    {
+        if (playerLeftRect.intersects(rect) && player->vx() < 0)
+        {
+            player->setVx(0);
+        }
+    }
+    foreach (QRectF rect, Lefthitbox)
+    {
+        if (rect.intersects(playerRightRect) && player->vx() > 0)
+        {
+            player->setVx(0);
+        }
+    }
+    foreach (QRectF rect, Tophitbox)
+    {
+        if (rect.intersects(playerBottomRect) && player->vy() < 0)
+        {
+                player->setVy(0);
+        }
+    }
+    foreach (QRectF rect, Bottomhitbox)
+    {
+        if (playerTopRect.intersects(rect) && player->vy() > 0)
+        {
+            player->setVy(0);
+        }
     }
 }
 
