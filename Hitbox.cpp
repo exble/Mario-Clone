@@ -7,8 +7,6 @@ Hitbox::Hitbox(Object *owner)
 {
     if (owner)
         {
-
-
             QRectF objTopRect(owner->x(), owner->y(), owner->boundingRect().width(), 1);
             QRectF objBottomRect(owner->x(), owner->y() + owner->boundingRect().height() - 1, owner->boundingRect().width(), 1);
             QRectF objLeftRect(owner->x(), owner->y(), 1, owner->boundingRect().height());

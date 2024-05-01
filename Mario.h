@@ -10,9 +10,7 @@ public:
     Mario();
     void update();
     void keyPressEvent(QKeyEvent* event);
-    //Hitbox<Mario> hitbox;
     QRectF hitbox(char);
-    //Hitbox* hitbox;
 
 private:
     void controlHandler();

@@ -25,6 +25,18 @@ public:
     QGraphicsScene *getScene() const;
 
     QGraphicsView *getView() const;
+    void updateBlockHitbox();
+    void traceMario();
+    void checkCollision();
+    QList<QRectF> Righthitbox;
+    QList<QRectF> Lefthitbox;
+    QList<QRectF> Tophitbox;
+    QList<QRectF> Bottomhitbox;
+    QRectF playerTopRect;
+    QRectF playerBottomRect;
+    QRectF playerLeftRect;
+    QRectF playerRightRect;
+
 
 private:
     int width;
@@ -33,6 +45,7 @@ private:
     Mario* player;
 
     Block* bl;
+    Block* bl2;
 private slots:
     void update();
 };
