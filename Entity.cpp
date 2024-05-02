@@ -45,31 +45,24 @@ void Entity::setSpeed(float Vx, float Vy)
 collide_info Entity::getCollide()
 {
     collide_info info;
+
     foreach(Hitbox* static_hb, game->StaticHitboxList)
     {
         if(mhitbox->objtopRect.intersects(static_hb->objbottomRect)){
-            info.is_collide = true;
-            info.collider = static_hb->owner;
-            info.collide_from = Direction::Up;
-            return info;
+            info[Direction::Up].is_collide = true;
+            info[Direction::Up].collider = static_hb->owner;
         }
         if(mhitbox->objleftRect.intersects(static_hb->objrightRect)){
-            info.is_collide = true;
-            info.collider = static_hb->owner;
-            info.collide_from = Direction::Left;
-            return info;
+            info[Direction::Left].is_collide = true;
+            info[Direction::Left].collider = static_hb->owner;
         }
         if(mhitbox->objrightRect.intersects(static_hb->objleftRect)){
-            info.is_collide = true;
-            info.collider = static_hb->owner;
-            info.collide_from = Direction::Right;
-            return info;
+            info[Direction::Right].is_collide = true;
+            info[Direction::Right].collider = static_hb->owner;
         }
         if(mhitbox->objbottomRect.intersects(static_hb->objtopRect)){
-            info.is_collide = true;
-            info.collider = static_hb->owner;
-            info.collide_from = Direction::Down;
-            return info;
+            info[Direction::Down].is_collide = true;
+            info[Direction::Down].collider = static_hb->owner;
         }
     }
     return info;

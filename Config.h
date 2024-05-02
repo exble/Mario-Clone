@@ -7,6 +7,7 @@
 #define BLOCK_SIZE 50
 #define MAX_SPEED 5
 #define WALKING_ACCELERATION_PER_SEC 10
+#define JUMP_HOLDING_MAX_MILISEC 300
 #define GRAVITATIONAL_ACCELERATION_PER_SEC 9.8
 #define FRICTION_ACCELERATION_PER_SEC 7
 #define ANIMATION_PER_SEC 6
@@ -16,7 +17,7 @@
 
 enum class Blocks{Box, Broken, Floor, Normal, Stone, Pipe};
 enum class State{Jumping, Falling, Stop, Running};
-enum class Direction{Up, Down, Left, Right};
+enum class Direction{None, Up, Down, Left, Right};
 enum class Facing{Left, Right};
 
 #endif // CONFIG_H

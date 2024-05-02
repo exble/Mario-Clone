@@ -4,12 +4,21 @@
 #include "Object.h"
 #include <math.h>
 
-struct collide_info
-{
-    bool is_collide = false;
-    Object* collider = nullptr;
-    Direction collide_from = Direction::Up;
+class collide_info{
+private:
+    struct sub_cell
+    {
+        bool is_collide = false;
+        Object* collider = nullptr;
+    };
+    sub_cell mdata[4];
+public:
+    sub_cell& operator[](Direction dir){
+        return mdata[(int)dir - 1];
+    }
 };
+
+
 
 class Entity : public Object{
 public:

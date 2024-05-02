@@ -32,7 +32,7 @@ private:
     QList<QString> walking_annimation_R;
     std::vector<bool> isKeyPressed;
     bool key_holding;
-    QTimer* key_holding_timer;
+    QTimer* JumpTimer;
     int walking_state;
     int animation_counter;
     Key key;

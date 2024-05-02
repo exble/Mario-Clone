@@ -103,38 +103,33 @@ void ToxicMushroom::update_image(){
 void ToxicMushroom::collide_handler()
 {
     collide_info info = getCollide();
-    if(info.is_collide){
-        if(info.collide_from == Direction::Up){
-            if(vy() > 0){
-                setVy(0);
-                setPos(x(), info.collider->y()+info.collider->boundingRect().height());
-            }
+    if(info[Direction::Up].is_collide){
+        if(vy() > 0){
+            setVy(0);
+            setPos(x(), info[Direction::Up].collider->y()+info[Direction::Up].collider->boundingRect().height());
         }
-        if(info.collide_from == Direction::Down){
-            if(vy() < 0){
-                setVy(0);
-                state = State::Stop;
-                setPos(x(), info.collider->y() - 50);
-            }
-        }
-        else{
-            gravity();
-        }
-        if(info.collide_from == Direction::Left){
-            if(vx() < 0){
-                setVx(-vx());
-                setPos(info.collider->x()+50, y());
-            }
-        }
-        if(info.collide_from == Direction::Right){
-            if(vx() > 0){
-                setVx(-vx());
-                setPos(info.collider->x()-50, y());
-            }
+    }
+    if(info[Direction::Down].is_collide){
+        if(vy() < 0){
+            setVy(0);
+            state = State::Stop;
+            setPos(x(), info[Direction::Down].collider->y() - 50);
         }
     }
     else{
         gravity();
+    }
+    if(info[Direction::Left].is_collide){
+        if(vx() < 0){
+            setVx(-vx());
+            setPos(info[Direction::Left].collider->x()+50, y());
+        }
+    }
+    if(info[Direction::Right].is_collide){
+        if(vx() > 0){
+            setVx(-vx());
+            setPos(info[Direction::Right].collider->x()-50, y());
+        }
     }
 }
 

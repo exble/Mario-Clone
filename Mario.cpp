@@ -24,6 +24,8 @@ Mario::Mario()
                             ":/images/image/Mario_small/s_mario_run2_R.png"};
     walking_state = 0;
     animation_counter = 0;
+    JumpTimer = new QTimer();
+    JumpTimer->setSingleShot(true);
     mhitbox = new Hitbox(this, false);
 }
 
@@ -60,10 +62,13 @@ void Mario::keyReleaseEvent(QKeyEvent *event)
 }
 
 void Mario::update(){
+
+    //apply friction so mario will stop eventually
     friction();
 
-
+    //handle collision with blocks and gravity
     collideHandler();
+
     // update xx and vy accoding to key input
     controlHandler();
 
@@ -103,9 +108,14 @@ void Mario::stateUpdate(){
 
 void Mario::controlHandler(){
     //move according to keyboard input
-    if(isKeyPressed[(int)Key::W] /*&& !(state == State::Jumping || state == State::Falling)*/){
-        setVy(vy() + 0.2);
-        state = State::Jumping;
+    if(isKeyPressed[(int)Key::W]){
+        if(JumpTimer->isActive()){
+            setVy(vy() + 0.2);
+            state = State::Jumping;
+        }
+        else if(!(state == State::Jumping || state == State::Falling)){
+            JumpTimer->start(JUMP_HOLDING_MAX_MILISEC);
+        }
     }
     if(isKeyPressed[(int)Key::A]){
         setVx(fmax(vx() - SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), -MAX_SPEED));
@@ -121,38 +131,33 @@ void Mario::controlHandler(){
 void Mario::collideHandler()
 {
     collide_info info = getCollide();
-    if(info.is_collide){
-        if(info.collide_from == Direction::Up){
-            if(vy() > 0){
-                setVy(0);
-                setPos(x(), info.collider->y()+info.collider->boundingRect().height());
-            }
+    if(info[Direction::Up].is_collide){
+        if(vy() > 0){
+            setVy(0);
+            setPos(x(), info[Direction::Up].collider->y()+info[Direction::Up].collider->boundingRect().height());
         }
-        if(info.collide_from == Direction::Down){
-            if(vy() < 0){
-                setVy(0);
-                state = State::Stop;
-                setPos(x(), info.collider->y() - 50);
-            }
-        }
-        else{
-            gravity();
-        }
-        if(info.collide_from == Direction::Left){
-            if(vx() < 0){
-                setVx(0);
-                setPos(info.collider->x()+50, y());
-            }
-        }
-        if(info.collide_from == Direction::Right){
-            if(vx() > 0){
-                setVx(0);
-                setPos(info.collider->x()-50, y());
-            }
+    }
+    if(info[Direction::Down].is_collide){
+        if(vy() < 0){
+            setVy(0);
+            state = State::Stop;
+            setPos(x(), info[Direction::Down].collider->y() - 50);
         }
     }
     else{
         gravity();
+    }
+    if(info[Direction::Left].is_collide){
+        if(vx() < 0){
+            setVx(0);
+            setPos(info[Direction::Left].collider->x()+50, y());
+        }
+    }
+    if(info[Direction::Right].is_collide){
+        if(vx() > 0){
+            setVx(0);
+            setPos(info[Direction::Right].collider->x()-50, y());
+        }
     }
 }
 
@@ -197,7 +202,7 @@ void Mario::update_image(){
 
 void Mario::gravity()
 {
-    setVy(fmax(vy() - SEC_TO_TICK(GRAVITATIONAL_ACCELERATION_PER_SEC), -10));
+    setVy(fmax(vy() - SEC_TO_TICK(GRAVITATIONAL_ACCELERATION_PER_SEC), -8));
 }
 
 void Mario::friction()
