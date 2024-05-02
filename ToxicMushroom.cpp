@@ -63,7 +63,8 @@ void ToxicMushroom::CollideAtEvent(Direction dir, Object* collider)
 }
 
 void ToxicMushroom::update(){
-    gravity();
+
+    collide_handler();
 
     // with vx determine facing and state
     stateUpdate();
@@ -76,13 +77,7 @@ void ToxicMushroom::update(){
     //qDebug() << "vx: " << vx() << "vy: " << vy();
     //qDebug() << "x: " << x() << "y: " << y();
 
-    //get hitbox
-    QRectF boundingBox = this ->boundingRect();
-    //saperate hitbox
-    QRectF playertopRect(boundingBox.topLeft(), QPointF(boundingBox.topRight().x(), boundingBox.topRight().y() ));
-    QRectF playerbottomRect(QPointF(boundingBox.bottomLeft().x() , boundingBox.bottomLeft().y()), boundingBox.bottomRight());
-    QRectF playerleftRect(QPointF(boundingBox.topLeft().x() , boundingBox.topLeft().y()), boundingBox.bottomLeft());
-    QRectF playerrightRect(QPointF(boundingBox.topRight().x() , boundingBox.topRight().y()), boundingBox.bottomRight());
+
 
 }
 
@@ -137,6 +132,44 @@ void ToxicMushroom::update_image(){
     }
     else if (state == State::Falling){
 
+    }
+}
+
+void ToxicMushroom::collide_handler()
+{
+    collide_info info = getCollide();
+    if(info.is_collide){
+        if(info.collide_from == Direction::Up){
+            if(vy() > 0){
+                setVy(0);
+                setPos(x(), info.collider->y()+info.collider->boundingRect().height());
+            }
+        }
+        if(info.collide_from == Direction::Down){
+            if(vy() < 0){
+                setVy(0);
+                state = State::Stop;
+                setPos(x(), info.collider->y() - 50);
+            }
+        }
+        else{
+            gravity();
+        }
+        if(info.collide_from == Direction::Left){
+            if(vx() < 0){
+                setVx(-vx());
+                setPos(info.collider->x()+50, y());
+            }
+        }
+        if(info.collide_from == Direction::Right){
+            if(vx() > 0){
+                setVx(-vx());
+                setPos(info.collider->x()-50, y());
+            }
+        }
+    }
+    else{
+        gravity();
     }
 }
 

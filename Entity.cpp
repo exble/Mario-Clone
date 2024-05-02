@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Game.h"
+#include "Hitbox.h"
 
 extern Game* game;
 
@@ -39,4 +40,37 @@ void Entity::setSpeed(float Vx, float Vy)
 {
     setVx(Vx);
     setVy(Vy);
+}
+
+collide_info Entity::getCollide()
+{
+    collide_info info;
+    foreach(Hitbox* static_hb, game->StaticHitboxList)
+    {
+        if(mhitbox->objtopRect.intersects(static_hb->objbottomRect)){
+            info.is_collide = true;
+            info.collider = static_hb->owner;
+            info.collide_from = Direction::Up;
+            return info;
+        }
+        if(mhitbox->objleftRect.intersects(static_hb->objrightRect)){
+            info.is_collide = true;
+            info.collider = static_hb->owner;
+            info.collide_from = Direction::Left;
+            return info;
+        }
+        if(mhitbox->objrightRect.intersects(static_hb->objleftRect)){
+            info.is_collide = true;
+            info.collider = static_hb->owner;
+            info.collide_from = Direction::Right;
+            return info;
+        }
+        if(mhitbox->objbottomRect.intersects(static_hb->objtopRect)){
+            info.is_collide = true;
+            info.collider = static_hb->owner;
+            info.collide_from = Direction::Down;
+            return info;
+        }
+    }
+    return info;
 }

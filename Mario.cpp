@@ -82,7 +82,7 @@ void Mario::CollideAtEvent(Direction dir, Object* collider)
             setVy(0);
             state = State::Stop;
             is_onground = true;
-            setPos(x(), collider->y() - 55);
+            setPos(x(), collider->y() - 50);
         }
     }
     if(dir == Direction::Right){
@@ -97,8 +97,8 @@ void Mario::CollideAtEvent(Direction dir, Object* collider)
 void Mario::update(){
     friction();
 
-    gravity();
 
+    collideHandler();
     // update xx and vy accoding to key input
     controlHandler();
 
@@ -112,14 +112,6 @@ void Mario::update(){
     move();
     qDebug() << "vx: " << vx() << "vy: " << vy();
     qDebug() << "x: " << x() << "y: " << y();
-
-    //get hitbox
-    QRectF boundingBox = this ->boundingRect();
-    //saperate hitbox
-    QRectF playertopRect(boundingBox.topLeft(), QPointF(boundingBox.topRight().x(), boundingBox.topRight().y() ));
-    QRectF playerbottomRect(QPointF(boundingBox.bottomLeft().x() , boundingBox.bottomLeft().y()), boundingBox.bottomRight());
-    QRectF playerleftRect(QPointF(boundingBox.topLeft().x() , boundingBox.topLeft().y()), boundingBox.bottomLeft());
-    QRectF playerrightRect(QPointF(boundingBox.topRight().x() , boundingBox.topRight().y()), boundingBox.bottomRight());
 
 }
 
@@ -158,6 +150,44 @@ void Mario::controlHandler(){
     }
     if(isKeyPressed[(int)Key::D]){
         setVx(fmin(vx() + SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), MAX_SPEED));
+    }
+}
+
+void Mario::collideHandler()
+{
+    collide_info info = getCollide();
+    if(info.is_collide){
+        if(info.collide_from == Direction::Up){
+            if(vy() > 0){
+                setVy(0);
+                setPos(x(), info.collider->y()+info.collider->boundingRect().height());
+            }
+        }
+        if(info.collide_from == Direction::Down){
+            if(vy() < 0){
+                setVy(0);
+                state = State::Stop;
+                setPos(x(), info.collider->y() - 50);
+            }
+        }
+        else{
+            gravity();
+        }
+        if(info.collide_from == Direction::Left){
+            if(vx() < 0){
+                setVx(0);
+                setPos(info.collider->x()+50, y());
+            }
+        }
+        if(info.collide_from == Direction::Right){
+            if(vx() > 0){
+                setVx(0);
+                setPos(info.collider->x()-50, y());
+            }
+        }
+    }
+    else{
+        gravity();
     }
 }
 

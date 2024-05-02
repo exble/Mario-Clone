@@ -68,7 +68,7 @@ void Game::start()
 void Game::update()
 {
     player->setFocus();
-    checkCollision();
+
 
 
 }
@@ -106,33 +106,8 @@ int Game::getHeight() const
     return height;
 }
 
-void Game::checkCollision()
-{
-    foreach(Entity* ent, EntityList)
-    {
-        foreach(Hitbox* static_hb, StaticHitboxList)
-        {
-            if(ent->mhitbox){
 
-                //qDebug() << "bx: "<< box.x() << "by: " << box.y();
 
-                if(ent->mhitbox->objtopRect.intersects(static_hb->objbottomRect)){
-                    ent->CollideAtEvent(Direction::Up, static_hb->owner);
-                }
-                if(ent->mhitbox->objleftRect.intersects(static_hb->objrightRect)){
-                    ent->CollideAtEvent(Direction::Left, static_hb->owner);
-                }
-                if(ent->mhitbox->objrightRect.intersects(static_hb->objleftRect)){
-                    ent->CollideAtEvent(Direction::Right, static_hb->owner);
-                }
-                if(ent->mhitbox->objbottomRect.intersects(static_hb->objtopRect)){
-                    ent->CollideAtEvent(Direction::Down, static_hb->owner);
-                }
-            }
-        }
-    }
-
-}
 
 
 

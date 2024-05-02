@@ -5,6 +5,8 @@
 #include <QKeyEvent>
 #include "Entity.h"
 
+
+
 class Hitbox;
 
 class Mario : public Entity{
@@ -19,10 +21,12 @@ public:
 
 private:
     void controlHandler();
+    void collideHandler();
     void stateUpdate();
     void update_image();
     void gravity();
     void friction();
+
     int twotick;
     enum class Key{W, A, S, D, NONE};
     QList<QString> walking_annimation_L;

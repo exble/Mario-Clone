@@ -17,6 +17,7 @@ public:
 private:
     void stateUpdate();
     void update_image();
+    void collide_handler();
     void gravity();
     int twotick;
     QList<QString> walking_annimation_L;

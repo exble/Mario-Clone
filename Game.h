@@ -29,7 +29,6 @@ public:
     QGraphicsView *getView() const;
     void updateBlockHitbox();
     void traceMario();
-    void checkCollision();
     QList<Block*> BlockList;
     QList<Object*> ObjectList;
     QList<Entity*> EntityList;
