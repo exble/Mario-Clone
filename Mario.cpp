@@ -10,7 +10,7 @@
 extern Game* game;
 
 Mario::Mario()
-    {
+{
     this->setFlag(QGraphicsItem::ItemIsFocusable);
     this->setFocus();
     setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_L.png"));
@@ -78,6 +78,9 @@ void Mario::update(){
     // update image according to facing and state
     update_image();
 
+    //boundry check
+    boundryCheck();
+
     // move according to Mario's vx and vy
     move();
     qDebug() << "vx: " << vx() << "vy: " << vy();
@@ -85,7 +88,8 @@ void Mario::update(){
 
 }
 
-void Mario::stateUpdate(){
+void Mario::stateUpdate()
+{
     if(vy() > 0){
         state = State::Jumping;
     }
@@ -106,7 +110,8 @@ void Mario::stateUpdate(){
     }
 }
 
-void Mario::controlHandler(){
+void Mario::controlHandler()
+{
     //move according to keyboard input
     if(isKeyPressed[(int)Key::W]){
         if(JumpTimer->isActive()){
@@ -148,15 +153,15 @@ void Mario::collideHandler()
         gravity();
     }
     if(info[Direction::Left].is_collide){
+        setPos(info[Direction::Left].collider->x()+50, y());
         if(vx() < 0){
             setVx(0);
-            setPos(info[Direction::Left].collider->x()+50, y());
         }
     }
     if(info[Direction::Right].is_collide){
+        setPos(info[Direction::Right].collider->x()-50, y());
         if(vx() > 0){
             setVx(0);
-            setPos(info[Direction::Right].collider->x()-50, y());
         }
     }
 }
@@ -187,16 +192,13 @@ void Mario::update_image(){
         }
         animation_counter++;
     }
-    else if (state == State::Jumping){
+    else if (state == State::Jumping || state == State::Falling){
         if(faceTo == Facing::Left){
             setPixmap(QPixmap(":/images/image/Mario_small/s_mario_jump1_L.png"));
         }
         else {
             setPixmap(QPixmap(":/images/image/Mario_small/s_mario_jump1_R.png"));
         }
-    }
-    else if (state == State::Falling){
-
     }
 }
 
@@ -217,6 +219,14 @@ void Mario::friction()
         setVx(vx()+SEC_TO_TICK(FRICTION_ACCELERATION_PER_SEC));
     }
     setVx(0.999*vx());
+}
+
+void Mario::boundryCheck()
+{
+    if(x() < game->scroll_limit && vx() < 0){
+        setVx(0);
+        setPos(game->scroll_limit, y());
+    }
 }
 
 void Mario::setState(State newState)

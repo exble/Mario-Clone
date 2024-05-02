@@ -25,6 +25,7 @@ private:
     void update_image();
     void gravity();
     void friction();
+    void boundryCheck();
 
     int twotick;
     enum class Key{W, A, S, D, NONE};

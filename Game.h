@@ -19,13 +19,9 @@ public:
     QTimer* getTick() const;
     int getWidth() const;
     int getHeight() const;
-    QGraphicsScene* scene;
-    QGraphicsView* view;
     void start();
     Mario *getPlayer() const;
-
     QGraphicsScene *getScene() const;
-
     QGraphicsView *getView() const;
     void updateBlockHitbox();
     void traceMario();
@@ -33,13 +29,16 @@ public:
     QList<Object*> ObjectList;
     QList<Entity*> EntityList;
     QList<Hitbox*> StaticHitboxList;
-
+    int scroll_limit;
 
 private:
     int width;
     int height;
     QTimer* tick;
     Mario* player;
+    QGraphicsScene* scene;
+    QGraphicsView* view;
+
 private slots:
     void update();
 };

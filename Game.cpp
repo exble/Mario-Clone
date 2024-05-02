@@ -1,5 +1,7 @@
 #include <QGraphicsView>
+#include <QGraphicsRectItem>
 #include <QGraphicsScene>
+#include <QScrollBar>
 #include <QTimer>
 #include <QObject>
 #include <QImage>
@@ -11,6 +13,7 @@
 #include "Config.h"
 #include "Hitbox.h"
 #include "Entity.h"
+#include "Config.h"
 #include "ToxicMushroom.h"
 Game::Game(){
 
@@ -23,18 +26,19 @@ void Game::start()
     view = new QGraphicsView();
     view->setScene(scene);
     view->show();
-    setSize(GAME_WIDTH, GAME_HEIGHT);
-    view->setFixedSize(width, height);
-    scene->setSceneRect(0,0,width,height);
+    view->setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    scene->setSceneRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 
     //setup background
     scene->setBackgroundBrush(QBrush(QImage(":/images/image/background.png")));
 
     //setup tick and update()
     tick = new QTimer();
-    tick->start(1000 / TICK_PER_SEC);
+    tick->start(1000.0 / TICK_PER_SEC);
     connect(tick, SIGNAL(timeout()), this, SLOT(update()));
     //init game
     player = new Mario();
@@ -50,17 +54,19 @@ void Game::start()
 
     Block* bl;
     bl = new Block(Blocks::Box);
-    bl->setPos(500,400);
+    bl->setPos(500,500);
     scene->addItem(bl);
     BlockList.push_back(bl);
     bl = new Block(Blocks::Floor);
-    bl->setPos(700,400);
+    bl->setPos(700,500);
     scene->addItem(bl);
     BlockList.push_back(bl);
-    for(int i = 0; i < 30; i++){
+    for(int i = 0; i < 150; i++){
+        if(i >= 15 && i <= 18)
+            continue;
         Block* m_block = new Block(Blocks::Floor);
         BlockList.push_back(m_block);
-        m_block->setPos(i*50, 500);
+        m_block->setPos(i*50, 600);
         scene->addItem(m_block);
     }
 }
@@ -68,8 +74,9 @@ void Game::start()
 void Game::update()
 {
     player->setFocus();
-
-
+    scroll_limit = std::max(player->x()-WINDOW_WIDTH/2, (double)scroll_limit);
+    // focus view on player
+    view->horizontalScrollBar()->setValue(scroll_limit);
 
 }
 

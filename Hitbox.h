@@ -2,6 +2,7 @@
 #define HITBOX_H
 
 #include <QRectF>
+#include <QGraphicsRectItem>
 #include "Object.h"
 
 
@@ -13,13 +14,19 @@ public:
     QRectF objleftRect;
     QRectF objrightRect;
     QRectF movingBox;
+    QGraphicsRectItem* topRect;
+    QGraphicsRectItem* leftRect;
+    QGraphicsRectItem* rightRect;
+    QGraphicsRectItem* bottomRect;
     Object* owner;
     bool is_static;
+    bool getVisible();
+    void setVisible(bool);
     QRectF boundingBox;
     void update();
 private:
     bool is_active;
-
+    bool visible;
 };
 
 #endif // HITBOX_H

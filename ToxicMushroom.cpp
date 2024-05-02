@@ -6,13 +6,8 @@
 #include "Hitbox.h"
 #include "Game.h"
 
-
-extern ToxicMushroom* toxicMushroom;
-
 ToxicMushroom::ToxicMushroom()
-    {
-    this->setFlag(QGraphicsItem::ItemIsFocusable);
-    this->setFocus();
+{
     setPixmap(QPixmap(":/images/image/toxic mushroom1.png"));
     faceTo = Facing::Left;
     state = State::Stop;

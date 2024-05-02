@@ -8,8 +8,6 @@
 
 class Hitbox;
 
-class Hitbox;
-
 class Object : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
