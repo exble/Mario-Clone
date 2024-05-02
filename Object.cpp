@@ -21,16 +21,6 @@ void Object::setCollision(bool sel)
     is_collide = sel;
 }
 
-void Object::CollideAtEvent(Direction dir, Object* collider)
-{
-    if(dir == Direction::Up){
-
-    }
-    if(collider == 0){
-
-    }
-}
-
 //this function will run for every tick
 void Object::update()
 {

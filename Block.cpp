@@ -27,24 +27,3 @@ Block::Block(Blocks block_type)
     mhitbox = new Hitbox(this, true);
 }
 
-
-QRectF Block::hitbox(char x)
-{
-    //get hitbox
-    QRectF blocktopRect(this->x(), this->y(), this->boundingRect().width(), 1);
-    QRectF blockbottomRect(this->x(), this->y() + this->boundingRect().height() - 1, this->boundingRect().width(), 1);
-    QRectF blockleftRect(this->x(), this->y(), 1, this->boundingRect().height());
-    QRectF blockrightRect(this->x() + this->boundingRect().width() - 1, this->y(), 1, this->boundingRect().height());
-
-    if(x=='t')
-        return blocktopRect;
-    if(x=='b')
-        return blockbottomRect;
-    if(x=='l')
-        return blockleftRect;
-    if(x=='r')
-        return blockrightRect;
-
-    return blockrightRect;
-}
-

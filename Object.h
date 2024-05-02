@@ -16,7 +16,6 @@ public:
     Object();
     void remove();
     void setCollision(bool sel);
-    virtual void CollideAtEvent(Direction dir, Object* collider);
     Hitbox* mhitbox;
     virtual void update();
 private slots:

@@ -24,7 +24,6 @@ Mario::Mario()
                             ":/images/image/Mario_small/s_mario_run2_R.png"};
     walking_state = 0;
     animation_counter = 0;
-    setCollision(true);
     mhitbox = new Hitbox(this, false);
 }
 
@@ -57,40 +56,6 @@ void Mario::keyReleaseEvent(QKeyEvent *event)
     }
     if (event->key() == Qt::Key_D){
         isKeyPressed[(int)Key::D] = false;
-    }
-}
-
-void Mario::CollideAtEvent(Direction dir, Object* collider)
-{
-    if(dir == Direction::Up){
-        //qDebug() << time(NULL) << "Collide up";
-        if(vy() > 0){
-            setVy(0);
-            setPos(x(), collider->y()+collider->boundingRect().height());
-        }
-    }
-    if(dir == Direction::Left){
-        //qDebug() << time(NULL) << "Collide Left";
-        if(vx() < 0){
-            setVx(0);
-            setPos(collider->x()+50, y());
-        }
-    }
-    if(dir == Direction::Down){
-        //qDebug() << time(NULL) << "Collide Down";
-        if(vy() < 0){
-            setVy(0);
-            state = State::Stop;
-            is_onground = true;
-            setPos(x(), collider->y() - 50);
-        }
-    }
-    if(dir == Direction::Right){
-        //qDebug() << time(NULL) << "Collide Right";
-        if(vx() > 0){
-            setVx(0);
-            setPos(collider->x()-50, y());
-        }
     }
 }
 

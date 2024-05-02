@@ -27,41 +27,6 @@ ToxicMushroom::ToxicMushroom()
     setVx(1);
 }
 
-
-void ToxicMushroom::CollideAtEvent(Direction dir, Object* collider)
-{
-    if(dir == Direction::Up){
-        //qDebug() << time(NULL) << "Collide up";
-        if(vy() > 0){
-            setVy(0);
-            setPos(x(), collider->y()+collider->boundingRect().height());
-        }
-    }
-    if(dir == Direction::Left){
-        //qDebug() << time(NULL) << "Collide Left";
-        if(vx() < 0){
-            setVx(-vx());
-            setPos(collider->x()+50, y());
-        }
-    }
-    if(dir == Direction::Down){
-        //qDebug() << time(NULL) << "Collide Down";
-        if(vy() < 0){
-            setVy(0);
-            state = State::Stop;
-            is_onground = true;
-            setPos(x(), collider->y() - 55);
-        }
-    }
-    if(dir == Direction::Right){
-        //qDebug() << time(NULL) << "Collide Right";
-        if(vx() > 0){
-            setVx(-vx());
-            setPos(collider->x()-50, y());
-        }
-    }
-}
-
 void ToxicMushroom::update(){
 
     collide_handler();

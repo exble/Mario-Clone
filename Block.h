@@ -9,7 +9,6 @@ class Hitbox;
 class Block : public Object{
 public:
     Block(Blocks block_type);
-    QRectF hitbox( char );
 private:
 
 };

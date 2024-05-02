@@ -10,8 +10,6 @@ class ToxicMushroom : public Entity{
 public:
     ToxicMushroom();
     void update();
-    void CollideAtEvent(Direction dir, Object* collider);
-    QRectF hitbox(char);
     void setState(State newState);
 
 private:
@@ -26,6 +24,5 @@ private:
     int animation_counter;
     Facing faceTo;
     State state;
-    bool is_onground;
 };
 #endif // TOXICMUSHROOM_H

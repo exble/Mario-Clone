@@ -15,7 +15,6 @@ public:
     void update();
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    void CollideAtEvent(Direction dir, Object* collider);
     QRectF hitbox(char);
     void setState(State newState);
 
