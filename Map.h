@@ -2,8 +2,9 @@
 #define MAP_H
 
 #include "Config.h"
-#include "Game.h"
 #include <vector>
+
+class Entity;
 using namespace std;
 
 /*

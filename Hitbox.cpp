@@ -1,28 +1,30 @@
 #include "Hitbox.h"
 #include "Config.h"
-#include<QDebug>
+#include "Game.h"
+#include <QDebug>
+#include <QGraphicsRectItem>
 
-Hitbox::Hitbox(Object *owner)
-    :owner(owner)
+extern Game* game;
+
+Hitbox::Hitbox(Object *owner, bool is_static)
+    :owner(owner),
+    is_static(is_static)
 {
-    if (owner)
-        {
-            QRectF objTopRect(owner->x(), owner->y(), owner->boundingRect().width(), 1);
-            QRectF objBottomRect(owner->x(), owner->y() + owner->boundingRect().height() - 1, owner->boundingRect().width(), 1);
-            QRectF objLeftRect(owner->x(), owner->y(), 1, owner->boundingRect().height());
-            QRectF objRightRect(owner->x() + owner->boundingRect().width() - 1, owner->y(), 1, owner->boundingRect().height());
-        }
-        else
-        {
 
-            objtopRect = QRectF();
-            objbottomRect = QRectF();
-            objleftRect = QRectF();
-            objrightRect = QRectF();
-        }
+    if(is_static){
+        game->StaticHitboxList.push_back(this);
+    }
+
 }
 
 void Hitbox::update()
 {
+    setPos(owner->x(), owner->y());
+    boundingBox = owner->boundingRect();
+    objtopRect.setRect(owner->x()+5, owner->y(), boundingBox.width()-10, 4);
+    objbottomRect.setRect(owner->x()+5, owner->y() + boundingBox.height()-2, owner->boundingRect().width()-10, 4);
+    objleftRect.setRect(owner->x(), owner->y() + 2, 3, boundingBox.height()-4);
+    objrightRect.setRect(owner->x() + boundingBox.width() - 1, owner->y() + 2, 3, owner->boundingRect().height()-4);
+    movingBox.setRect(owner->x(), owner->y(), boundingBox.width(), boundingBox.height());
+}
 
- }

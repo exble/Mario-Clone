@@ -3,13 +3,15 @@
 
 #include "Object.h"
 #include "Config.h"
-#include "Hitbox.h"
 
+class Hitbox;
 
 class Block : public Object{
 public:
     Block(Blocks block_type);
-    QRectF Block::hitbox( char );
+    QRectF hitbox( char );
+private:
+
 };
 
 

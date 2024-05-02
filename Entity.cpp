@@ -1,10 +1,13 @@
 #include "Entity.h"
+#include "Game.h"
 
+extern Game* game;
 
 Entity::Entity()
 {
     _vx = 0;
     _vy = 0;
+    game->EntityList.push_back(this);
 }
 
 void Entity::move()
@@ -24,31 +27,11 @@ float Entity::vy() const
 
 void Entity::setVx(float newVx)
 {
-    bool sign;
-    if(newVx >= 0){
-        sign = 0;
-    }
-    else{
-        sign = 1;
-    }
-    if (abs(newVx) > MAX_SPEED){
-        newVx = sign ? -MAX_SPEED: MAX_SPEED;
-    }
     _vx = newVx;
 }
 
 void Entity::setVy(float newVy)
 {
-    bool sign;
-    if(newVy >= 0){
-        sign = 0;
-    }
-    else{
-        sign = 1;
-    }
-    if (abs(newVy) > MAX_SPEED){
-        newVy = sign ? -MAX_SPEED: MAX_SPEED;
-    }
     _vy = newVy;
 }
 

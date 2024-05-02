@@ -16,7 +16,7 @@ public:
     void setVx(float newVx);
     void setVy(float newVy);
     void setSpeed(float Vx, float Vy);
-    enum class Facing{Left, Right};
+
 private:
     float _vx, _vy;
 };

@@ -1,6 +1,3 @@
-#include "Game.h"
-#include "Config.h"
-#include "Hitbox.h"
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QTimer>
@@ -10,6 +7,10 @@
 #include <QDebug>
 #include <QList>
 #include <QRect>
+#include "Game.h"
+#include "Config.h"
+#include "Hitbox.h"
+#include "Entity.h"
 Game::Game(){
 
 }
@@ -36,14 +37,14 @@ void Game::start()
     connect(tick, SIGNAL(timeout()), this, SLOT(update()));
     //init game
     player = new Mario();
-    player->setPos(500, 500);
+    player->setPos(500, 300);
     scene->addItem(player);
     player->setFocus();
     //player->hitbox = new Hitbox(player);
 
     Block* bl;
     bl = new Block(Blocks::Box);
-    bl->setPos(500,250);
+    bl->setPos(500,400);
     scene->addItem(bl);
     BlockList.push_back(bl);
     bl = new Block(Blocks::Floor);
@@ -61,11 +62,10 @@ void Game::start()
 void Game::update(){
     player->setFocus();
 
-    updateBlockHitbox();
-    traceMario();
+
     checkCollision();
 
-    qDebug() << "x: " << player->x() << "y: " << player->y();
+
 }
 
 Mario *Game::getPlayer() const
@@ -101,59 +101,34 @@ int Game::getHeight() const
     return height;
 }
 
-void Game::updateBlockHitbox()
-{
-    Righthitbox.clear();
-    Lefthitbox.clear();
-    Tophitbox.clear();
-    Bottomhitbox.clear();
-    foreach(Block* m_block, BlockList){
-        Righthitbox.push_back(m_block->hitbox('r'));
-        Lefthitbox.push_back( m_block->hitbox('l'));
-        Tophitbox.push_back( m_block->hitbox('t'));
-        Bottomhitbox.push_back( m_block->hitbox('b'));
-    }
-}
-void Game::traceMario()
-{
-    //saperated hitbox
-    playerTopRect.setRect(player->x()+1, player->y(), player->boundingRect().width()-2, 5);
-    playerBottomRect.setRect(player->x()+1, player->y() + player->boundingRect().height() -5 , player->boundingRect().width()-2, 5);
-    playerLeftRect.setRect(player->x()+10, player->y(), 5, player->boundingRect().height()-1);
-    playerRightRect.setRect(player->x() + player->boundingRect().width()-10 , player->y(), 5, player->boundingRect().height()-1);
-}
 void Game::checkCollision()
 {
-    foreach (QRectF rect, Righthitbox)
+    foreach(Entity* ent, EntityList)
     {
-        if (playerLeftRect.intersects(rect) && player->vx() < 0)
+        foreach(Hitbox* static_hb, StaticHitboxList)
         {
-            player->setVx(0);
+            if(ent->mhitbox){
+
+                //qDebug() << "bx: "<< box.x() << "by: " << box.y();
+
+                if(ent->mhitbox->objtopRect.intersects(static_hb->objbottomRect)){
+                    ent->CollideAtEvent(Direction::Up, static_hb->owner);
+                }
+                if(ent->mhitbox->objleftRect.intersects(static_hb->objrightRect)){
+                    ent->CollideAtEvent(Direction::Left, static_hb->owner);
+                }
+                if(ent->mhitbox->objrightRect.intersects(static_hb->objleftRect)){
+                    ent->CollideAtEvent(Direction::Right, static_hb->owner);
+                }
+                if(ent->mhitbox->objbottomRect.intersects(static_hb->objtopRect)){
+                    ent->CollideAtEvent(Direction::Down, static_hb->owner);
+                }
+            }
         }
     }
-    foreach (QRectF rect, Lefthitbox)
-    {
-        if (rect.intersects(playerRightRect) && player->vx() > 0)
-        {
-            player->setVx(0);
-        }
-    }
-    foreach (QRectF rect, Tophitbox)
-    {
-        if (rect.intersects(playerBottomRect) && player->vy() < 0)
-        {
-            player->setVy(0);
-            player->setState(State::Stop);
-        }
-    }
-    foreach (QRectF rect, Bottomhitbox)
-    {
-        if (playerTopRect.intersects(rect) && player->vy() > 0)
-        {
-            player->setVy(0);
-        }
-    }
+
 }
+
 
 
 

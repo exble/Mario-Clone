@@ -1,5 +1,6 @@
 #include "Block.h"
-
+#include "Mario.h"
+#include "Hitbox.h"
 
 Block::Block(Blocks block_type)
 {
@@ -23,6 +24,7 @@ Block::Block(Blocks block_type)
         setPixmap(QPixmap(":/images/image/brick/Stone brick.png"));
         break;
     }
+    mhitbox = new Hitbox(this, true);
 }
 
 

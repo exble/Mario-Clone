@@ -6,12 +6,18 @@
 #include <QObject>
 #include "Config.h"
 
+class Hitbox;
+
+class Hitbox;
+
 class Object : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     Object();
     void remove();
     void setCollision(bool sel);
+    virtual void CollideAtEvent(Direction dir, Object* collider);
+    Hitbox* mhitbox;
     virtual void update();
 private slots:
     void update_handler();

@@ -5,8 +5,10 @@
 #include <QGraphicsScene>
 #include <QTimer>
 #include <QObject>
+
 #include "Mario.h"
 #include "Block.h"
+
 
 class Game : public QObject{
     Q_OBJECT
@@ -29,14 +31,9 @@ public:
     void traceMario();
     void checkCollision();
     QList<Block*> BlockList;
-    QList<QRectF> Righthitbox;
-    QList<QRectF> Lefthitbox;
-    QList<QRectF> Tophitbox;
-    QList<QRectF> Bottomhitbox;
-    QRectF playerTopRect;
-    QRectF playerBottomRect;
-    QRectF playerLeftRect;
-    QRectF playerRightRect;
+    QList<Object*> ObjectList;
+    QList<Entity*> EntityList;
+    QList<Hitbox*> StaticHitboxList;
 
 
 private:
