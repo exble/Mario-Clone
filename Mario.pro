@@ -16,6 +16,7 @@ SOURCES += \
     Map.cpp \
     Mario.cpp \
     Object.cpp \
+    ToxicMushroom.cpp \
     main.cpp
 
 HEADERS += \
@@ -26,7 +27,8 @@ HEADERS += \
     Hitbox.h \
     Map.h \
     Mario.h \
-    Object.h
+    Object.h \
+    ToxicMushroom.h
 
 FORMS +=
 

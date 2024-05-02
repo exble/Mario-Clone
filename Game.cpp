@@ -11,6 +11,7 @@
 #include "Config.h"
 #include "Hitbox.h"
 #include "Entity.h"
+#include "ToxicMushroom.h"
 Game::Game(){
 
 }
@@ -42,13 +43,18 @@ void Game::start()
     player->setFocus();
     //player->hitbox = new Hitbox(player);
 
+    ToxicMushroom* Toxic;
+    Toxic = new ToxicMushroom();
+    Toxic->setPos(600,400);
+    scene->addItem(Toxic);
+
     Block* bl;
     bl = new Block(Blocks::Box);
     bl->setPos(500,400);
     scene->addItem(bl);
     BlockList.push_back(bl);
     bl = new Block(Blocks::Floor);
-    bl->setPos(400,250);
+    bl->setPos(700,400);
     scene->addItem(bl);
     BlockList.push_back(bl);
     for(int i = 0; i < 30; i++){
@@ -59,10 +65,9 @@ void Game::start()
     }
 }
 
-void Game::update(){
+void Game::update()
+{
     player->setFocus();
-
-
     checkCollision();
 
 
