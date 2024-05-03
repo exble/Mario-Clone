@@ -8,7 +8,7 @@ extern Game* game;
 
 Hitbox::Hitbox(Object *owner, bool is_static)
     :owner(owner),
-    is_static(is_static)
+    is_collision_on(is_static)
 {
     if(is_static){
         game->StaticHitboxList.push_back(this);
@@ -41,13 +41,17 @@ void Hitbox::setVisible(bool sel)
 
 void Hitbox::update()
 {
-    //setPos(owner->x(), owner->y());
-    boundingBox = owner->boundingRect();
-    objtopRect.setRect(owner->x()+5, owner->y(), boundingBox.width()-10, 4);
-    objbottomRect.setRect(owner->x()+5, owner->y() + boundingBox.height()-2, owner->boundingRect().width()-10, 4);
-    objleftRect.setRect(owner->x(), owner->y() + 2, 4, boundingBox.height()-4);
-    objrightRect.setRect(owner->x() + boundingBox.width() - 5, owner->y() + 2, 4, owner->boundingRect().height()-4);
-    movingBox.setRect(owner->x(), owner->y(), boundingBox.width(), boundingBox.height());
+    if(owner){
+        boundingBox = owner->boundingRect();
+        objtopRect.setRect(owner->x()+5, owner->y(), boundingBox.width()-10, 4);
+        objbottomRect.setRect(owner->x()+5, owner->y() + boundingBox.height()-2, owner->boundingRect().width()-10, 4);
+        objleftRect.setRect(owner->x(), owner->y() + 2, 4, boundingBox.height()-4);
+        objrightRect.setRect(owner->x() + boundingBox.width() - 5, owner->y() + 2, 4, owner->boundingRect().height()-4);
+        movingBox.setRect(owner->x(), owner->y(), boundingBox.width(), boundingBox.height());
+    }
+    else{
+        this->remove();
+    }
 #ifdef DEBUG_HITBOX
     //topRect->setPos(mapFromScene(owner->x()+5, owner->y()));
     //leftRect->setPos(mapFromScene(owner->x()+5, owner->y() + boundingBox.height()-2));

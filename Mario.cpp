@@ -76,16 +76,17 @@ void Mario::update(){
     stateUpdate();
 
     // update image according to facing and state
-    update_image();
+    updateImage();
 
     //boundry check
     boundryCheck();
 
     // move according to Mario's vx and vy
     move();
+#if DEBUG_PLAYER
     qDebug() << "vx: " << vx() << "vy: " << vy();
     qDebug() << "x: " << x() << "y: " << y();
-
+#endif
 }
 
 void Mario::stateUpdate()
@@ -166,7 +167,7 @@ void Mario::collideHandler()
     }
 }
 
-void Mario::update_image(){
+void Mario::updateImage(){
     //change image according to state and facing
     if(state == State::Stop){
         if(faceTo == Facing::Left){
@@ -223,13 +224,17 @@ void Mario::friction()
 
 void Mario::boundryCheck()
 {
-    if(x() < game->scroll_limit && vx() < 0){
+    if(x() < fmin(game->scroll_limit, GAME_WIDTH - 1400) && vx() < 0){
         setVx(0);
-        setPos(game->scroll_limit, y());
+        setPos(fmin(game->scroll_limit, GAME_WIDTH - 1400), y());
+    }
+    if(x() > GAME_WIDTH - 50 && vx() > 0){
+        setVx(0);
+        setPos(GAME_WIDTH - 50, y());
     }
 }
 
-void Mario::setState(State newState)
+void Mario::shootBullet()
 {
-    state = newState;
+
 }

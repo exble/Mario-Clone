@@ -12,15 +12,18 @@ class Object : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     Object();
+    ~Object();
     void remove();
     void setCollision(bool sel);
     Hitbox* mhitbox;
     virtual void update();
+    bool IsoutOfBound();
 private slots:
     void update_handler();
 private:
     bool is_collide;
     bool delete_flag;
+    std::string name;
 };
 
 #endif // OBJECT_H

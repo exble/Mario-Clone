@@ -19,7 +19,7 @@ public:
     QGraphicsRectItem* rightRect;
     QGraphicsRectItem* bottomRect;
     Object* owner;
-    bool is_static;
+    bool is_collision_on;
     bool getVisible();
     void setVisible(bool);
     QRectF boundingBox;

@@ -18,14 +18,12 @@ public:
     }
 };
 
-
-
 class Entity : public Object{
 public:
     Entity();
     // Right for positive vx, Up for positive vy
     void move();
-
+    bool is_enemy;
     float vx() const;
     float vy() const;
     collide_info getCollide();

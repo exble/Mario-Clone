@@ -10,17 +10,20 @@ CONFIG += c++11
 
 SOURCES += \
     Block.cpp \
+    Bullet.cpp \
     Entity.cpp \
     Game.cpp \
     Hitbox.cpp \
     Map.cpp \
     Mario.cpp \
     Object.cpp \
+    TitleScreen.cpp \
     ToxicMushroom.cpp \
     main.cpp
 
 HEADERS += \
     Block.h \
+    Bullet.h \
     Config.h \
     Entity.h \
     Game.h \
@@ -28,6 +31,7 @@ HEADERS += \
     Map.h \
     Mario.h \
     Object.h \
+    TitleScreen.h \
     ToxicMushroom.h
 
 FORMS +=

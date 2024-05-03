@@ -23,8 +23,7 @@ public:
     Mario *getPlayer() const;
     QGraphicsScene *getScene() const;
     QGraphicsView *getView() const;
-    void updateBlockHitbox();
-    void traceMario();
+    void setUpBackGround();
     QList<Block*> BlockList;
     QList<Object*> ObjectList;
     QList<Entity*> EntityList;

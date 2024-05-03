@@ -15,18 +15,15 @@ public:
     void update();
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
-    QRectF hitbox(char);
-    void setState(State newState);
-
 private:
     void controlHandler();
     void collideHandler();
     void stateUpdate();
-    void update_image();
+    void updateImage();
     void gravity();
     void friction();
     void boundryCheck();
-
+    void shootBullet();
     int twotick;
     enum class Key{W, A, S, D, NONE};
     QList<QString> walking_annimation_L;

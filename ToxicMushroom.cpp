@@ -19,10 +19,13 @@ ToxicMushroom::ToxicMushroom()
     animation_counter = 0;
     setCollision(true);
     mhitbox = new Hitbox(this, false);
+    is_enemy = true;
     setVx(1);
 }
 
 void ToxicMushroom::update(){
+
+
 
     collide_handler();
 
@@ -36,9 +39,9 @@ void ToxicMushroom::update(){
     move();
     //qDebug() << "vx: " << vx() << "vy: " << vy();
     //qDebug() << "x: " << x() << "y: " << y();
-
-
-
+    if(IsoutOfBound()){
+       this->remove();
+    }
 }
 
 void ToxicMushroom::stateUpdate(){

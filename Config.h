@@ -6,6 +6,8 @@
 #define GAME_HEIGHT 700
 #define WINDOW_WIDTH 1400
 #define WINDOW_HEIGHT 700
+#define TITLE_WIDTH 1080
+#define TITLE_HEIGHT 619
 #define BLOCK_SIZE 50
 #define MAX_SPEED 5
 #define WALKING_ACCELERATION_PER_SEC 10
@@ -16,6 +18,8 @@
 #define TICK_PER_ANIMATION (TICK_PER_SEC / ANIMATION_PER_SEC)
 #define SEC_TO_TICK(x) ((float)x / TICK_PER_SEC)
 #define EPSILON 1e-1
+#define DEBUG_PLAYER 1
+#define DEBUG_REMOVE 0
 //#define DEBUG_HITBOX
 
 enum class Blocks{Box, Broken, Floor, Normal, Stone, Pipe};

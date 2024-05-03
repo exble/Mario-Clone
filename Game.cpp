@@ -15,6 +15,7 @@
 #include "Entity.h"
 #include "Config.h"
 #include "ToxicMushroom.h"
+#include "TitleScreen.h"
 Game::Game(){
 
 }
@@ -24,28 +25,29 @@ void Game::start()
     //setup QGraphicsView
     scene = new QGraphicsScene();
     view = new QGraphicsView();
-    view->setScene(scene);
-    view->show();
-    view->setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    scene->setSceneRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-
-    //setup background
-    scene->setBackgroundBrush(QBrush(QImage(":/images/image/background.png")));
 
     //setup tick and update()
     tick = new QTimer();
     tick->start(1000.0 / TICK_PER_SEC);
     connect(tick, SIGNAL(timeout()), this, SLOT(update()));
+
+    //freeze main tick until title scene end
+    tick->stop();
+
+    //give control to TitleScreen
+    TitleScreen ts;
+    view->setFixedSize(TITLE_WIDTH, TITLE_HEIGHT);
+    scene->setSceneRect(0,0,TITLE_WIDTH,TITLE_HEIGHT);
+    view->setScene(ts.titleScene);
+    view->show();
+
     //init game
     player = new Mario();
     player->setPos(500, 300);
     scene->addItem(player);
     player->setFocus();
-    //player->hitbox = new Hitbox(player);
 
     ToxicMushroom* Toxic;
     Toxic = new ToxicMushroom();
@@ -69,12 +71,17 @@ void Game::start()
         m_block->setPos(i*50, 600);
         scene->addItem(m_block);
     }
+    scroll_limit = 0;
 }
 
 void Game::update()
 {
+    // set player on focus so that keyboard input can be obtain
     player->setFocus();
+
+    // set scroll limit according to player x positon tod
     scroll_limit = std::max(player->x()-WINDOW_WIDTH/2, (double)scroll_limit);
+
     // focus view on player
     view->horizontalScrollBar()->setValue(scroll_limit);
 
@@ -93,6 +100,15 @@ QGraphicsScene *Game::getScene() const
 QGraphicsView *Game::getView() const
 {
     return view;
+}
+
+void Game::setUpBackGround()
+{
+
+    view->setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    scene->setSceneRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+    scene->setBackgroundBrush(QBrush(QImage(":/images/image/background.png")));
+    view->setScene(scene);
 }
 
 void Game::setSize(int width, int height){
