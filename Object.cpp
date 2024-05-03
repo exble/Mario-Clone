@@ -18,6 +18,12 @@ Object::Object(){
 Object::~Object()
 {
     disconnect(game->getTick(),SIGNAL(timeout()), this, SLOT(update_handler()));
+    for(int i = 0; i < game->ObjectList.size(); i++){
+        if(game->ObjectList[i] == this){
+            game->ObjectList.removeAt(i);
+            break;
+        }
+    }
     if(mhitbox){
         mhitbox->remove();
     }

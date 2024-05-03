@@ -9,6 +9,7 @@
 class Hitbox : public Object{
 public:
     Hitbox(Object* owner);
+    ~Hitbox();
     QRectF objtopRect;
     QRectF objbottomRect;
     QRectF objleftRect;

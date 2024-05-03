@@ -24,6 +24,15 @@ Hitbox::Hitbox(Object *owner)
 #endif
 }
 
+Hitbox::~Hitbox(){
+    for(int i = 0; i < game->HitboxList.size(); i++){
+        if(game->HitboxList[i] == this){
+            game->HitboxList.removeAt(i);
+            break;
+        }
+    }
+}
+
 bool Hitbox::getVisible()
 {
     return visible;

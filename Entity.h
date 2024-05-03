@@ -21,6 +21,7 @@ public:
 class Entity : public Object{
 public:
     Entity();
+    ~Entity();
     // Right for positive vx, Up for positive vy
     void move();
     bool is_enemy;

@@ -11,6 +11,16 @@ Entity::Entity()
     game->EntityList.push_back(this);
 }
 
+Entity::~Entity()
+{
+    for(int i = 0; i < game->EntityList.size(); i++){
+        if(game->EntityList[i] == this){
+            game->EntityList.removeAt(i);
+            break;
+        }
+    }
+}
+
 void Entity::move()
 {
     setPos(x() + _vx,y() - _vy);

@@ -117,7 +117,6 @@ void ToxicMushroom::collide_handler()
                 setPos(x(), info[Direction::Down].collider->y() - 50);
             }
         }
-
     }
     else{
         gravity();
