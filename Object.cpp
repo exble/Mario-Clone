@@ -1,6 +1,7 @@
 #include "Object.h"
 #include "Game.h"
 #include "Hitbox.h"
+#include <typeinfo>
 #include <string>
 #include <QDebug>
 

@@ -15,16 +15,17 @@
 #define GRAVITATIONAL_ACCELERATION_PER_SEC 9.8
 #define FRICTION_ACCELERATION_PER_SEC 6
 #define ANIMATION_PER_SEC 6
+#define BULLET_SPEED 7
 #define TICK_PER_ANIMATION (TICK_PER_SEC / ANIMATION_PER_SEC)
 #define SEC_TO_TICK(x) ((float)x / TICK_PER_SEC)
 #define EPSILON 1e-1
-#define DEBUG_PLAYER 1
-#define DEBUG_REMOVE 0
-//#define DEBUG_HITBOX
+#define DEBUG_PLAYER 0
+#define DEBUG_REMOVE 1
+#define DEBUG_HITBOX 1
 
 enum class Blocks{Box, Broken, Floor, Normal, Stone, Pipe};
-enum class State{Jumping, Falling, Stop, Running};
-enum class Direction{None, Up, Down, Left, Right};
+enum class State{Jumping, Falling, Stop, Running, Dying};
+enum class Direction{Up, Down, Left, Right};
 enum class Facing{Left, Right};
 
 #endif // CONFIG_H

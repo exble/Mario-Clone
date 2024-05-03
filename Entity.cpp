@@ -46,7 +46,7 @@ collide_info Entity::getCollide()
 {
     collide_info info;
 
-    foreach(Hitbox* static_hb, game->StaticHitboxList)
+    foreach(Hitbox* static_hb, game->HitboxList)
     {
         if(mhitbox->objtopRect.intersects(static_hb->objbottomRect)){
             info[Direction::Up].is_collide = true;

@@ -15,7 +15,7 @@ using namespace std;
     y+ down
     1 tile is 50 pixel
     mario is about 50 pixel wide
-    consider map size about 300 block6
+    consider map size about 140 block
 
 */
 

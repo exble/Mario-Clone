@@ -15,10 +15,7 @@ class Game : public QObject{
 public:
 
     Game();
-    void setSize(int width, int height);
     QTimer* getTick() const;
-    int getWidth() const;
-    int getHeight() const;
     void start();
     Mario *getPlayer() const;
     QGraphicsScene *getScene() const;
@@ -27,19 +24,21 @@ public:
     QList<Block*> BlockList;
     QList<Object*> ObjectList;
     QList<Entity*> EntityList;
-    QList<Hitbox*> StaticHitboxList;
+    QList<Hitbox*> HitboxList;
     int scroll_limit;
 
 private:
-    int width;
-    int height;
     QTimer* tick;
+    QTimer* DeadTimer;
     Mario* player;
+    bool is_player_dying;
     QGraphicsScene* scene;
     QGraphicsView* view;
 
 private slots:
     void update();
+private:
+    void playerDyingHandler();
 };
 
 #endif // GAME_H

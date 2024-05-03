@@ -51,7 +51,7 @@ void Game::start()
 
     ToxicMushroom* Toxic;
     Toxic = new ToxicMushroom();
-    Toxic->setPos(600,400);
+    Toxic->setPos(800,400);
     scene->addItem(Toxic);
 
     Block* bl;
@@ -63,8 +63,12 @@ void Game::start()
     bl->setPos(700,500);
     scene->addItem(bl);
     BlockList.push_back(bl);
+    bl = new Block(Blocks::Floor);
+    bl->setPos(950,500);
+    scene->addItem(bl);
+    BlockList.push_back(bl);
     for(int i = 0; i < 150; i++){
-        if(i >= 15 && i <= 18)
+        if(i % 7 > 5)
             continue;
         Block* m_block = new Block(Blocks::Floor);
         BlockList.push_back(m_block);
@@ -72,10 +76,16 @@ void Game::start()
         scene->addItem(m_block);
     }
     scroll_limit = 0;
+    DeadTimer = new QTimer();
+    DeadTimer->setSingleShot(true);
+    is_player_dying = false;
 }
 
 void Game::update()
 {
+    // If player state is Dying handle it
+    playerDyingHandler();
+
     // set player on focus so that keyboard input can be obtain
     player->setFocus();
 
@@ -85,6 +95,19 @@ void Game::update()
     // focus view on player
     view->horizontalScrollBar()->setValue(scroll_limit);
 
+}
+
+void Game::playerDyingHandler()
+{
+    if(!DeadTimer->isActive() && is_player_dying){
+        player->Reset(500, 300);
+        is_player_dying = false;
+        scroll_limit = 0;
+    }
+    else if(player->getState() == State::Dying && !is_player_dying){
+        DeadTimer->start(2000);
+        is_player_dying = true;
+    }
 }
 
 Mario *Game::getPlayer() const
@@ -109,32 +132,10 @@ void Game::setUpBackGround()
     scene->setSceneRect(0,0,GAME_WIDTH,GAME_HEIGHT);
     scene->setBackgroundBrush(QBrush(QImage(":/images/image/background.png")));
     view->setScene(scene);
-}
 
-void Game::setSize(int width, int height){
-    this->width = width;
-    this->height = height;
 }
 
 QTimer *Game::getTick() const{
     return tick;
 }
-int Game::getWidth() const
-{
-    return width;
-}
-
-int Game::getHeight() const
-{
-    return height;
-}
-
-
-
-
-
-
-
-
-
 

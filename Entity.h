@@ -14,7 +14,7 @@ private:
     sub_cell mdata[4];
 public:
     sub_cell& operator[](Direction dir){
-        return mdata[(int)dir - 1];
+        return mdata[(int)dir];
     }
 };
 
@@ -30,7 +30,7 @@ public:
     void setVx(float newVx);
     void setVy(float newVy);
     void setSpeed(float Vx, float Vy);
-
+    void stepEvent(Direction dir);
 private:
     float _vx, _vy;
 };

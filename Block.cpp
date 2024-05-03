@@ -24,6 +24,6 @@ Block::Block(Blocks block_type)
         setPixmap(QPixmap(":/images/image/brick/Stone brick.png"));
         break;
     }
-    mhitbox = new Hitbox(this, true);
+    mhitbox = new Hitbox(this);
 }
 

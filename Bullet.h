@@ -5,8 +5,8 @@
 
 class Bullet : public Entity{
 public:
-    Bullet();
-    Bullet(int _vx);
+    Bullet(Facing dir);
+    QList<QGraphicsItem*> collisions;
 private:
     void update();
 };

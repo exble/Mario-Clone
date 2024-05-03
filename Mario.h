@@ -3,6 +3,7 @@
 
 
 #include <QKeyEvent>
+#include <chrono>
 #include "Entity.h"
 
 
@@ -15,6 +16,9 @@ public:
     void update();
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
+    void Reset(qreal x, qreal y);
+    State getState() const;
+
 private:
     void controlHandler();
     void collideHandler();
@@ -24,14 +28,16 @@ private:
     void friction();
     void boundryCheck();
     void shootBullet();
-    int twotick;
+    void setDead();
     enum class Key{W, A, S, D, NONE};
     QList<QString> walking_annimation_L;
     QList<QString> walking_annimation_R;
+    QList<QGraphicsItem*> Collisions;
     std::vector<bool> isKeyPressed;
     bool key_holding;
     QTimer* JumpTimer;
-    int walking_state;
+    std::chrono::high_resolution_clock jumpTime;
+    int animation_state;
     int animation_counter;
     Key key;
     Facing faceTo;

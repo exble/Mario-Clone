@@ -8,7 +8,7 @@
 
 class Hitbox : public Object{
 public:
-    Hitbox(Object* owner, bool is_static);
+    Hitbox(Object* owner);
     QRectF objtopRect;
     QRectF objbottomRect;
     QRectF objleftRect;

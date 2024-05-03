@@ -17,8 +17,7 @@ ToxicMushroom::ToxicMushroom()
                             ":/images/image/toxic mushroom2.png"};
     walking_state = 0;
     animation_counter = 0;
-    setCollision(true);
-    mhitbox = new Hitbox(this, false);
+    mhitbox = new Hitbox(this);
     is_enemy = true;
     setVx(1);
 }
@@ -65,8 +64,6 @@ void ToxicMushroom::stateUpdate(){
     }
 }
 
-
-
 void ToxicMushroom::update_image(){
     //change image according to state and facing
     if(state == State::Stop){
@@ -101,32 +98,47 @@ void ToxicMushroom::update_image(){
 void ToxicMushroom::collide_handler()
 {
     collide_info info = getCollide();
+    Object* collider;
     if(info[Direction::Up].is_collide){
-        if(vy() > 0){
-            setVy(0);
-            setPos(x(), info[Direction::Up].collider->y()+info[Direction::Up].collider->boundingRect().height());
+        collider = info[Direction::Up].collider;
+        if(typeid(*collider) == typeid(Block)){
+            if(vy() > 0){
+                setVy(0);
+                setPos(x(), collider->y()+collider->boundingRect().height());
+            }
         }
     }
     if(info[Direction::Down].is_collide){
-        if(vy() < 0){
-            setVy(0);
-            state = State::Stop;
-            setPos(x(), info[Direction::Down].collider->y() - 50);
+        collider = info[Direction::Down].collider;
+        if(typeid(*collider) == typeid(Block)){
+            if(vy() < 0){
+                setVy(0);
+                state = State::Stop;
+                setPos(x(), info[Direction::Down].collider->y() - 50);
+            }
         }
+
     }
     else{
         gravity();
     }
     if(info[Direction::Left].is_collide){
-        if(vx() < 0){
-            setVx(-vx());
-            setPos(info[Direction::Left].collider->x()+50, y());
+        collider = info[Direction::Left].collider;
+        if(typeid(*collider) == typeid(Block)){
+            if(vx() < 0){
+                setVx(-vx());
+                setPos(info[Direction::Left].collider->x()+50, y());
+            }
         }
+
     }
     if(info[Direction::Right].is_collide){
-        if(vx() > 0){
-            setVx(-vx());
-            setPos(info[Direction::Right].collider->x()-50, y());
+        collider = info[Direction::Right].collider;
+        if(typeid(*collider) == typeid(Block)){
+            if(vx() > 0){
+                setVx(-vx());
+                setPos(info[Direction::Right].collider->x()-50, y());
+            }
         }
     }
 }
