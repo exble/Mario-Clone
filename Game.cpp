@@ -59,16 +59,19 @@ void Game::start()
     bl->setPos(500,500);
     scene->addItem(bl);
     BlockList.push_back(bl);
+
     bl = new Block(Blocks::Floor);
     bl->setPos(700,500);
     scene->addItem(bl);
     BlockList.push_back(bl);
+
     bl = new Block(Blocks::Floor);
     bl->setPos(950,500);
     scene->addItem(bl);
     BlockList.push_back(bl);
+
     for(int i = 0; i < 150; i++){
-        if(i % 7 > 5)
+        if(i % 7 > 5 && i > 7)
             continue;
         Block* m_block = new Block(Blocks::Floor);
         BlockList.push_back(m_block);
@@ -76,8 +79,8 @@ void Game::start()
         scene->addItem(m_block);
     }
     scroll_limit = 0;
-    DeadTimer = new QTimer();
-    DeadTimer->setSingleShot(true);
+    DeadTimer.setSingleShot(true);
+    mobspawn.setSingleShot(true);
     is_player_dying = false;
 }
 
@@ -95,17 +98,33 @@ void Game::update()
     // focus view on player
     view->horizontalScrollBar()->setValue(scroll_limit);
 
+    //mob testing playground
+    if(!mobspawn.isActive()){
+        static int counter = 0;
+        ToxicMushroom* Toxic;
+        Toxic = new ToxicMushroom();
+        Toxic->setPos(200,400);
+        scene->addItem(Toxic);
+        if(counter%2){
+            Toxic->setVx(1);
+        }
+        else{
+            Toxic->setVx(-1);
+        }
+        mobspawn.start(1000);
+        counter++;
+    }
 }
 
 void Game::playerDyingHandler()
 {
-    if(!DeadTimer->isActive() && is_player_dying){
+    if(!DeadTimer.isActive() && is_player_dying){
         player->Reset(500, 300);
         is_player_dying = false;
         scroll_limit = 0;
     }
     else if(player->getState() == State::Dying && !is_player_dying){
-        DeadTimer->start(2000);
+        DeadTimer.start(2000);
         is_player_dying = true;
     }
 }

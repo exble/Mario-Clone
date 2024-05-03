@@ -11,18 +11,16 @@ public:
     ToxicMushroom();
     void update();
     void setState(State newState);
-
+    Facing faceTo;
 private:
     void stateUpdate();
     void update_image();
     void collide_handler();
     void gravity();
-    int twotick;
     QList<QString> walking_annimation_L;
     QList<QString> walking_annimation_R;
     int walking_state;
     int animation_counter;
-    Facing faceTo;
     State state;
 };
 #endif // TOXICMUSHROOM_H

@@ -29,7 +29,8 @@ public:
 
 private:
     QTimer* tick;
-    QTimer* DeadTimer;
+    QTimer DeadTimer;
+    QTimer mobspawn;
     Mario* player;
     bool is_player_dying;
     QGraphicsScene* scene;
