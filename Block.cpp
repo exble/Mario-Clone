@@ -15,13 +15,13 @@ Block::Block(Blocks block_type)
         setPixmap(QPixmap(":/images/image/brick/floor brick.png"));
         break;
     case Blocks::Normal:
-        setPixmap(QPixmap(":/images/image/brick/Normal brick.png"));
+        setPixmap(QPixmap(":/images/image/brick/normal brick.png"));
         break;
     case Blocks::Pipe:
         setPixmap(QPixmap(":/images/image/brick/Pipe brick.png"));
         break;
     case Blocks::Stone:
-        setPixmap(QPixmap(":/images/image/brick/Stone brick.png"));
+        setPixmap(QPixmap(":/images/image/brick/stone brick.png"));
         break;
     }
     mhitbox = new Hitbox(this);
