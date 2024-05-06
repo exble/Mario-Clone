@@ -6,6 +6,7 @@
 #include "Hitbox.h"
 #include "Bullet.h"
 #include "ToxicMushroom.h"
+#include "Flag.h"
 #include "Game.h"
 
 

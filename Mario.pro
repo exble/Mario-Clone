@@ -12,6 +12,7 @@ SOURCES += \
     Block.cpp \
     Bullet.cpp \
     Entity.cpp \
+    Flag.cpp \
     Game.cpp \
     Hitbox.cpp \
     Map.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     Bullet.h \
     Config.h \
     Entity.h \
+    Flag.h \
     Game.h \
     Hitbox.h \
     Map.h \

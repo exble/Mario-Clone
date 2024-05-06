@@ -4,6 +4,8 @@
 #include "Object.h"
 #include <math.h>
 
+enum class FlagPart{Flag, Pole};
+
 class collide_info{
 private:
     struct sub_cell

@@ -21,11 +21,12 @@
 #define EPSILON 1e-1
 #define DEBUG_PLAYER 0
 #define DEBUG_REMOVE 1
-#define DEBUG_HITBOX 0
+#define DEBUG_HITBOX 1
 
 enum class Blocks{Box, Broken, Floor, Normal, Stone, Pipe};
 enum class State{Jumping, Falling, Stop, Running, Dying};
 enum class Direction{Up, Down, Left, Right};
 enum class Facing{Left, Right};
+
 
 #endif // CONFIG_H

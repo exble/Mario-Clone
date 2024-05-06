@@ -16,6 +16,7 @@
 #include "Config.h"
 #include "ToxicMushroom.h"
 #include "TitleScreen.h"
+#include "Flag.h"
 Game::Game(){
 
 }
@@ -70,6 +71,15 @@ void Game::start()
     scene->addItem(bl);
     BlockList.push_back(bl);
 
+    Flag* fl;
+    fl = new Flag(FlagPart::Flag);
+    fl->setPos(1050,98);
+    scene->addItem(fl);
+    Flag* fl2;
+    fl2 = new Flag(FlagPart::Pole, fl);
+    fl2->setPos(1110,98);
+    scene->addItem(fl2);
+
     for(int i = 0; i < 150; i++){
         if(i % 7 > 5 && i > 7)
             continue;
@@ -114,6 +124,11 @@ void Game::update()
         mobspawn.start(1000);
         counter++;
     }
+
+    /*foreach(Object* pt, HitboxList){
+        QRectF Top=&pt->Top;
+
+    }*/
 }
 
 void Game::playerDyingHandler()
