@@ -17,6 +17,7 @@
 #include "ToxicMushroom.h"
 #include "TitleScreen.h"
 #include "Flag.h"
+#include "Map.h"
 Game::Game(){
 
 }
@@ -50,47 +51,12 @@ void Game::start()
     scene->addItem(player);
     player->setFocus();
 
-    ToxicMushroom* Toxic;
-    Toxic = new ToxicMushroom();
-    Toxic->setPos(800,400);
-    scene->addItem(Toxic);
+    //init map
+    Map::setUpMap();
 
-    Block* bl;
-    bl = new Block(Blocks::Box);
-    bl->setPos(500,500);
-    scene->addItem(bl);
-    BlockList.push_back(bl);
-
-    bl = new Block(Blocks::Floor);
-    bl->setPos(700,500);
-    scene->addItem(bl);
-    BlockList.push_back(bl);
-
-    bl = new Block(Blocks::Floor);
-    bl->setPos(950,500);
-    scene->addItem(bl);
-    BlockList.push_back(bl);
-
-    Flag* fl;
-    fl = new Flag(FlagPart::Flag);
-    fl->setPos(1050,98);
-    scene->addItem(fl);
-    Flag* fl2;
-    fl2 = new Flag(FlagPart::Pole, fl);
-    fl2->setPos(1110,98);
-    scene->addItem(fl2);
-
-    for(int i = 0; i < 150; i++){
-        if(i % 7 > 5 && i > 7)
-            continue;
-        Block* m_block = new Block(Blocks::Floor);
-        BlockList.push_back(m_block);
-        m_block->setPos(i*50, 600);
-        scene->addItem(m_block);
-    }
+    //Player dead init
     scroll_limit = 0;
     DeadTimer.setSingleShot(true);
-    mobspawn.setSingleShot(true);
     is_player_dying = false;
 }
 
@@ -108,27 +74,7 @@ void Game::update()
     // focus view on player
     view->horizontalScrollBar()->setValue(scroll_limit);
 
-    //mob testing playground
-    if(!mobspawn.isActive()){
-        static int counter = 0;
-        ToxicMushroom* Toxic;
-        Toxic = new ToxicMushroom();
-        Toxic->setPos(200,400);
-        scene->addItem(Toxic);
-        if(counter%2){
-            Toxic->setVx(1);
-        }
-        else{
-            Toxic->setVx(-1);
-        }
-        mobspawn.start(1000);
-        counter++;
-    }
 
-    /*foreach(Object* pt, HitboxList){
-        QRectF Top=&pt->Top;
-
-    }*/
 }
 
 void Game::playerDyingHandler()

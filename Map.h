@@ -2,29 +2,15 @@
 #define MAP_H
 
 #include "Config.h"
-#include <vector>
-
-class Entity;
-using namespace std;
-
-/*
-    Todo:
-    map cord system from block cord to scene cord
-    (0,0) at up left corner
-    x+ right
-    y+ down
-    1 tile is 50 pixel
-    mario is about 50 pixel wide
-    consider map size about 140 block
-
-*/
 
 class Map{
+private:
+    Map() = default;
+    void __setUpMap();
+    static Map& getMap();
 public:
-    int width, height;
 
-    vector<vector<Blocks>> block_map;
-    vector<vector<Entity>> entity_map;
+    static void setUpMap();
 };
 
 #endif // MAP_H
