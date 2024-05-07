@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "Flower.h"
 #include "KoopaTroopa.h"
+#include "MovingBlock.h"
 
 
 
@@ -54,6 +55,8 @@ Mario::Mario()
 
     shootSound.setSource(QUrl("qrc:/audio/audio/smb_fireball.wav"));
     shootSound.setVolume(0.75);
+
+    is_onground = true;
 }
 
 void Mario::keyPressEvent(QKeyEvent* event){
@@ -137,6 +140,11 @@ void Mario::update(){
     //handle collision with blocks and gravity
     collideHandler();
 
+    //apply gravity if is not on ground
+    if(!is_onground){
+        gravity();
+    }
+
     //apply friction so mario will stop eventually
     friction();
 
@@ -165,13 +173,10 @@ void Mario::stateUpdate()
     if(state == State::Dying){
         //do nothing
     }
-    else if(vy() > 0){
+    else if(!is_onground){
         state = State::Jumping;
     }
-    else if(vy() < 0){
-        state = State::Falling;
-    }
-    else if(vx() == 0 && vy() == 0){
+    else if(vx() == 0){
         state = State::Stop;
     }
     else{
@@ -251,15 +256,31 @@ void Mario::collideHandler()
             }
             dynamic_cast<Block*>(collider)->BlockEvent();
         }
+        if(typeid(*collider) == typeid(MovingBlock)){
+            MovingBlock* mv = dynamic_cast<MovingBlock*>(collider);
+            if(vy() > mv->vy()){
+                setVy(mv->vy());
+                setPos(x(), collider->y()+collider->boundingRect().height());
+            }
+        }
     }
     if(info[Direction::Down].is_collide){
 #if DEBUG_HITBOX
         qDebug() << "Colliding from Down";
 #endif
         collider = info[Direction::Down].collider;
+        is_onground = true;
         if(typeid(*collider) == typeid(Block)){
             if(vy() < 0){
                 setVy(0);
+                state = State::Stop;
+                setPos(x(), collider->y() - boundingRect().height());
+            }
+        }
+        if(typeid(*collider) == typeid(MovingBlock)){
+            MovingBlock* mv = dynamic_cast<MovingBlock*>(collider);
+            if(vy() < mv->vy()){
+                setVy(mv->vy());
                 state = State::Stop;
                 setPos(x(), collider->y() - boundingRect().height());
             }
@@ -282,14 +303,14 @@ void Mario::collideHandler()
         }
     }
     else{
-        gravity();
+        is_onground = false;
     }
     if(info[Direction::Left].is_collide){
 #if DEBUG_HITBOX
         qDebug() << "Colliding from Left";
 #endif
         collider = info[Direction::Left].collider;
-        if(typeid(*collider) == typeid(Block)){
+        if(typeid(*collider) == typeid(Block) || typeid(*collider) == typeid(MovingBlock)){
             setPos(collider->x()+collider->boundingRect().width(), y());
             if(vx() < 0){
                 setVx(0);
@@ -315,7 +336,7 @@ void Mario::collideHandler()
         qDebug() << "Colliding from Right";
 #endif
         collider = info[Direction::Right].collider;
-        if(typeid(*collider) == typeid(Block)){
+        if(typeid(*collider) == typeid(Block) || typeid(*collider) == typeid(MovingBlock)){
             setPos(collider->x() - boundingRect().width(), y());
             if(vx() > 0){
                 setVx(0);

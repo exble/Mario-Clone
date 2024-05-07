@@ -46,13 +46,20 @@ void Block::BlockEvent()
     }
     if(block_type == Blocks::Box){
         setPixmap(QPixmap(":/images/image/brick/stone brick.png"));
+        Item* it = new Item(spawnType);
         if(spawnType == Items::SuperMushroom){
             Mushroom* mush = new Mushroom();
             mush->setPos(x(), y()-BLOCK_SIZE);
             game->getScene()->addItem(mush);
         }
+        else if(spawnType == Items::Coin){
+            it->setPos(x(), y()-BLOCK_SIZE);
+            it->setVy(5);
+            game->getScene()->addItem(it);
+            game->getPlayer()->addPoint();
+        }
         else{
-            Item* it = new Item(spawnType);
+
             it->setPos(x(), y()-BLOCK_SIZE);
             game->getScene()->addItem(it);
 

@@ -7,8 +7,14 @@
 #include "Flower.h"
 #include "Item.h"
 #include "KoopaTroopa.h"
+#include "MovingBlock.h"
 
 extern Game* game;
+
+Map::Map()
+{
+    connect(game->getTick(), SIGNAL(timeout()), this, SLOT(update()));
+}
 
 void Map::__setUpMap()
 {
@@ -82,6 +88,15 @@ void Map::__setUpMap()
         scene->addItem(stone);
         BlockList.push_back(stone);
     }
+
+    MovingBlock* m_block = new MovingBlock(Blocks::Normal);
+    m_block->setPos(1550, 330);
+    scene->addItem(m_block);
+
+    m_block = new MovingBlock(Blocks::Normal);
+    m_block->setPos(1550, 660);
+    scene->addItem(m_block);
+
     stone = new Block(Blocks::Stone);
     stone->setPos(1400,550);
     scene->addItem(stone);
@@ -120,6 +135,10 @@ void Map::__setUpMap()
     stone->setPos(1750,550);
     scene->addItem(stone);
     BlockList.push_back(stone);
+
+    toxic = new ToxicMushroom();
+    toxic->setPos(1900, 550);
+    scene->addItem(toxic);
 
     Block* broken;
     for(int i=0;i<3;i++){
@@ -168,6 +187,10 @@ void Map::__setUpMap()
         pipe->setPos(2450+i*200,500);
         scene->addItem(pipe);
         BlockList.push_back(pipe);
+
+        toxic = new ToxicMushroom();
+        toxic->setPos(2460+i*200, 500);
+        scene->addItem(toxic);
     }
 
     for(int i=0;i<2;i++){
@@ -199,6 +222,8 @@ void Map::__setUpMap()
         m_block->setPos(i*50+3550, 600);
         scene->addItem(m_block);
     }
+
+
 
     for(int i=0;i<4;i++){
 
@@ -261,6 +286,10 @@ void Map::__setUpMap()
         pipe->setPos(i*350+5500,500);
         scene->addItem(pipe);
         BlockList.push_back(pipe);
+
+        toxic = new ToxicMushroom();
+        toxic->setPos(i*350+5510, 550);
+        scene->addItem(toxic);
     }
 
     for(int i=0;i<5;i++){
@@ -275,6 +304,15 @@ void Map::__setUpMap()
     scene->addItem(bl);
     BlockList.push_back(bl);
 
+    m_block = new MovingBlock(Blocks::Normal);
+    m_block->setPos(5350, 300);
+    m_block->setVy(-10);
+    scene->addItem(m_block);
+
+    m_block = new MovingBlock(Blocks::Normal);
+    m_block->setPos(5400, 300);
+    m_block->setVy(-10);
+    scene->addItem(m_block);
 
     for(int i=0;i<2;i++){
         norm = new Block(Blocks::Normal);
@@ -347,6 +385,16 @@ Map& Map::getMap()
 {
     static Map map;
     return map;
+}
+
+void Map::update()
+{
+    if(game->getPlayer()->x() > 2900 && game->getPlayer()->x() < 2910){
+        ToxicMushroom* toxic = new ToxicMushroom();
+        toxic->setPos(3950, 450);
+        toxic->setVx(-1);
+        game->getScene()->addItem(toxic);
+    }
 }
 
 void Map::setUpMap()

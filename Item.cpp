@@ -19,10 +19,24 @@ Item::Item(Items item_type)
     default:
         break;
     }
+    is_moving = false;
+    coinTimer = new QTimer();
+    coinTimer->setSingleShot(true);
 }
 
 void Item::update()
 {
+    if(item_type == Items::Coin){
+        if(!is_moving && vy()!=0){
+            is_moving = true;
+            coinTimer->start(200);
+        }
+        else if(is_moving && !coinTimer->isActive()){
+            this->remove();
+        }
+    }
+
+
     collider = collidingItems();
     Mario* player;
     foreach(QGraphicsItem* item, collider){

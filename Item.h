@@ -11,6 +11,8 @@ private:
     void update();
     QList<QGraphicsItem*> collider;
     void collideHandler();
+    QTimer* coinTimer;
+    bool is_moving;
 };
 
 #endif // ITEM_H

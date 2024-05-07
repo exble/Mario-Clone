@@ -18,12 +18,16 @@ MovingBlock::MovingBlock(Blocks block_type)
         break;
     }
     mhitbox = new Hitbox(this);
+    setVy(2);
 }
 
 void MovingBlock::update()
 {
-    if(y() >= GAME_WIDTH){
+    if(y() >= GAME_HEIGHT){
         setPos(x(), -50);
+    }
+    else if(y() <= -50){
+        setPos(x(), GAME_HEIGHT);
     }
     move();
 }
