@@ -39,6 +39,11 @@ void Block::BlockEvent()
     if(block_type == Blocks::Broken){
         this->remove();
     }
+    if(block_type == Blocks::Normal){
+        if(spawnType == Items::Coin){
+
+        }
+    }
     if(block_type == Blocks::Box){
         setPixmap(QPixmap(":/images/image/brick/stone brick.png"));
         if(spawnType == Items::SuperMushroom){

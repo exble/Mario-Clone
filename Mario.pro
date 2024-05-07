@@ -19,9 +19,11 @@ SOURCES += \
     Game.cpp \
     Hitbox.cpp \
     Item.cpp \
+    KoopaTroopa.cpp \
     Map.cpp \
     Mario.cpp \
     MouseMove.cpp \
+    MovingBlock.cpp \
     Mushroom.cpp \
     Object.cpp \
     TextBox.cpp \
@@ -41,9 +43,11 @@ HEADERS += \
     Game.h \
     Hitbox.h \
     Item.h \
+    KoopaTroopa.h \
     Map.h \
     Mario.h \
     MouseMove.h \
+    MovingBlock.h \
     Mushroom.h \
     Object.h \
     TextBox.h \

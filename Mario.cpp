@@ -10,7 +10,7 @@
 #include "Item.h"
 #include "Game.h"
 #include "Flower.h"
-
+#include "KoopaTroopa.h"
 
 
 
@@ -60,7 +60,6 @@ void Mario::keyPressEvent(QKeyEvent* event){
 
     if(event->key() == Qt::Key_W){
         isKeyPressed[(int)Key::W] = true;
-        jumpSound.play();
     }
     if (event->key() == Qt::Key_A){
         isKeyPressed[(int)Key::A] = true;
@@ -204,6 +203,7 @@ void Mario::controlHandler()
 
     if(isKeyPressed[(int)Key::W]){
         if(state == State::Stop || state == State::Running){
+            jumpSound.play();
             if(is_big){
                 setVy(vy() + JUMP_ACCELERATION_PER_TICK * 1.22);
             }
@@ -264,7 +264,7 @@ void Mario::collideHandler()
                 setPos(x(), collider->y() - boundingRect().height());
             }
         }
-        if(typeid(*collider) == typeid(ToxicMushroom)){
+        if(typeid(*collider) == typeid(ToxicMushroom) && vy()<0){
             collider->remove();
             setVy(2);
         }
@@ -295,7 +295,9 @@ void Mario::collideHandler()
                 setVx(0);
             }
         }
-        if(typeid(*collider) == typeid(ToxicMushroom) || typeid(*collider) == typeid(Flower)){
+        if(typeid(*collider) == typeid(ToxicMushroom)
+                || typeid(*collider) == typeid(Flower)
+                || typeid(*collider) == typeid(KoopaTroopa)){
             if(! InvincibleTimer->isActive()){
                 if(is_big){
                     is_big = false;
@@ -325,7 +327,9 @@ void Mario::collideHandler()
                 setVx(0);
             }
         }
-        if(typeid(*collider) == typeid(ToxicMushroom) || typeid(*collider) == typeid(Flower)){
+        if(typeid(*collider) == typeid(ToxicMushroom)
+                || typeid(*collider) == typeid(Flower)
+                || typeid(*collider) == typeid(KoopaTroopa)){
             if(! InvincibleTimer->isActive()){
                 if(is_big){
                     is_big = false;

@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "Block.h"
+#include "Hitbox.h"
 
 Bullet::Bullet(Facing dir)
 {
@@ -11,6 +12,7 @@ Bullet::Bullet(Facing dir)
     else if(dir == Facing::Right){
         setVx(BULLET_SPEED);
     }
+    mhitbox = new Hitbox(this);
 }
 
 void Bullet::update()

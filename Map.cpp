@@ -6,6 +6,7 @@
 #include "TextBox.h"
 #include "Flower.h"
 #include "Item.h"
+#include "KoopaTroopa.h"
 
 extern Game* game;
 
@@ -20,8 +21,12 @@ void Map::__setUpMap()
         scene->addItem(m_block);
     }
 
+    KoopaTroopa* koop = new KoopaTroopa();
+    koop->setPos(300, 400);
+    scene->addItem(koop);
+
     ToxicMushroom* toxic = new ToxicMushroom();
-    toxic->setPos(300, 200);
+    toxic->setPos(100, 200);
     toxic->setVx(1);
     scene->addItem(toxic);
 
