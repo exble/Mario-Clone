@@ -4,6 +4,7 @@
 
 #include <QKeyEvent>
 #include <chrono>
+#include <QSoundEffect>
 #include "Entity.h"
 
 
@@ -32,6 +33,9 @@ private:
     void updateImage();
     void friction();
     void boundryCheck();
+
+    QSoundEffect jumpSound;
+    QSoundEffect shootSound;
 
     void setDead();
     enum class Key{W, A, S, D, NONE};
