@@ -292,8 +292,8 @@ void Map::__setUpMap()
     BlockList.push_back(stone);
     Flag* flag = new Flag(FlagPart::Flag);
     Flag* pole = new Flag(FlagPart::Pole, flag);
-    flag->setPos(6900, 550);
-    pole->setPos(6950, 100);
+    flag->setPos(6890, 540);
+    pole->setPos(6950, 98);
     scene->addItem(flag);
     scene->addItem(pole);
 
