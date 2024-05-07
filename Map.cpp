@@ -4,6 +4,8 @@
 #include "Config.h"
 #include "ToxicMushroom.h"
 #include "TextBox.h"
+#include "Flower.h"
+#include "Item.h"
 
 extern Game* game;
 
@@ -25,6 +27,8 @@ void Map::__setUpMap()
 
     Block* bl;
 
+
+
     bl = new Block(Blocks::Box, Items::SuperMushroom);
     bl->setPos(700,450);
     scene->addItem(bl);
@@ -37,11 +41,16 @@ void Map::__setUpMap()
 
 
     Block* norm;
+    Item* item;
     for(int i=0;i<3;i++){
         norm = new Block(Blocks::Normal);
         norm->setPos(850+i*50,450);
         scene->addItem(norm);
         BlockList.push_back(norm);
+
+        item = new Item(Items::Coin);
+        item->setPos(850+i*50, 400);
+        scene->addItem(item);
     }
 
     Block* pipe;
@@ -49,6 +58,13 @@ void Map::__setUpMap()
     pipe->setPos(1150,500);
     scene->addItem(pipe);
     BlockList.push_back(pipe);
+
+    //vicious Flower
+    Flower* flower = new Flower();
+    flower->setPos(300,535);
+    scene->addItem(flower);
+    flower->setZValue(10);
+
     pipe = new Block(Blocks::Pipe);
     pipe->setPos(150,500);
     scene->addItem(pipe);
@@ -135,7 +151,7 @@ void Map::__setUpMap()
     scene->addItem(broken);
     BlockList.push_back(broken);
 
-    bl = new Block(Blocks::Box);
+    bl = new Block(Blocks::Box, Items::Coin);
     bl->setPos(2000,100);
     scene->addItem(bl);
     BlockList.push_back(bl);
@@ -167,7 +183,7 @@ void Map::__setUpMap()
         BlockList.push_back(norm);
     }
 
-    bl = new Block(Blocks::Box);
+    bl = new Block(Blocks::Box, Items::SuperMushroom);
     bl->setPos(3350,250);
     scene->addItem(bl);
     BlockList.push_back(bl);
@@ -249,7 +265,7 @@ void Map::__setUpMap()
         BlockList.push_back(stone);
     }
 
-    bl = new Block(Blocks::Box);
+    bl = new Block(Blocks::Box, Items::SuperMushroom);
     bl->setPos(4950,200);
     scene->addItem(bl);
     BlockList.push_back(bl);

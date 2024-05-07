@@ -9,6 +9,7 @@
 #include "Flag.h"
 #include "Item.h"
 #include "Game.h"
+#include "Flower.h"
 
 
 
@@ -260,6 +261,18 @@ void Mario::collideHandler()
             collider->remove();
             setVy(2);
         }
+        if(typeid(*collider) == typeid(Flower)){
+            if(! InvincibleTimer->isActive()){
+                if(is_big){
+                    is_big = false;
+                    InvincibleTimer->start(2000);
+                }
+                else{
+                    InvincibleTimer->start(2000);
+                    hp--;
+                }
+            }
+        }
     }
     else{
         gravity();
@@ -275,7 +288,7 @@ void Mario::collideHandler()
                 setVx(0);
             }
         }
-        if(typeid(*collider) == typeid(ToxicMushroom)){
+        if(typeid(*collider) == typeid(ToxicMushroom) || typeid(*collider) == typeid(Flower)){
             if(! InvincibleTimer->isActive()){
                 if(is_big){
                     is_big = false;
@@ -299,7 +312,13 @@ void Mario::collideHandler()
                 setVx(0);
             }
         }
-        if(typeid(*collider) == typeid(ToxicMushroom)){
+        if(typeid(*collider) == typeid(Flag)){
+            setPos(collider->x()-50, y());
+            if(vx() > 0){
+                setVx(0);
+            }
+        }
+        if(typeid(*collider) == typeid(ToxicMushroom) || typeid(*collider) == typeid(Flower)){
             if(! InvincibleTimer->isActive()){
                 if(is_big){
                     is_big = false;

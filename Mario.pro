@@ -15,6 +15,7 @@ SOURCES += \
     EndScene.cpp \
     Entity.cpp \
     Flag.cpp \
+    Flower.cpp \
     Game.cpp \
     Hitbox.cpp \
     Item.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     EndScene.h \
     Entity.h \
     Flag.h \
+    Flower.h \
     Game.h \
     Hitbox.h \
     Item.h \
