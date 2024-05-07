@@ -48,12 +48,19 @@ Mario::Mario()
     InvincibleTimer = new QTimer();
     InvincibleTimer->setSingleShot(true);
     mhitbox = new Hitbox(this);
+
+    jumpSound.setSource(QUrl("qrc:/audio/audio/smb_jump-super.wav"));
+    jumpSound.setVolume(0.75);
+
+    shootSound.setSource(QUrl("qrc:/audio/audio/smb_fireball.wav"));
+    shootSound.setVolume(0.75);
 }
 
 void Mario::keyPressEvent(QKeyEvent* event){
 
     if(event->key() == Qt::Key_W){
         isKeyPressed[(int)Key::W] = true;
+        jumpSound.play();
     }
     if (event->key() == Qt::Key_A){
         isKeyPressed[(int)Key::A] = true;
@@ -444,6 +451,7 @@ void Mario::shootBullet(QPointF location)
 {
     if(ammo <= 0)
         return;
+    shootSound.play();
     Bullet* bullet = new Bullet(faceTo);
     if(faceTo == Facing::Left){
         bullet->setPos(x()-3, y()+15);
