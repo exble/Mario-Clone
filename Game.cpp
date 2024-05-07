@@ -61,6 +61,9 @@ void Game::start()
     view->setMouseTracking(true);
     mouse = new MouseMove();
 
+    //BGM init
+    backgroundMusic.play();
+
     // display init
     Score = new TextBox(100, 100);
     HP = new TextBox(600, 100);
@@ -104,6 +107,7 @@ void Game::playerDyingHandler()
         player->Reset(500, 400);
         is_player_dying = false;
         scroll_limit = 0;
+        backgroundMusic.restart();
     }
     else if(player->getState() == State::Dying && !is_player_dying){
         DeadTimer.start(2000);

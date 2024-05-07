@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <QObject>
 
+#include "BGM.h"
 #include "Mario.h"
 #include "Block.h"
 
@@ -37,7 +38,7 @@ private:
     QTimer DeadTimer;
     QTimer mobspawn;
     Mario* player;
-
+    BGM backgroundMusic;
     bool is_player_dying;
     QGraphicsScene* scene;
     QGraphicsView* view;

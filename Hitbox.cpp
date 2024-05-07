@@ -12,16 +12,6 @@ Hitbox::Hitbox(Object *owner)
     if(owner){
         game->HitboxList.push_back(this);
     }
-#if DEBUG_HITBOX
-    //topRect = new QGraphicsRectItem(objtopRect);
-    //leftRect = new QGraphicsRectItem(objleftRect);
-    //rightRect = new QGraphicsRectItem(objrightRect);
-    //bottomRect = new QGraphicsRectItem(objbottomRect);
-    //game->getScene()->addItem(topRect);
-    //game->getScene()->addItem(leftRect);
-    //game->getScene()->addItem(rightRect);
-    //game->getScene()->addItem(bottomRect);
-#endif
 }
 
 Hitbox::~Hitbox(){
@@ -31,16 +21,6 @@ Hitbox::~Hitbox(){
             break;
         }
     }
-}
-
-bool Hitbox::getVisible()
-{
-    return visible;
-}
-
-void Hitbox::setVisible(bool sel)
-{
-    visible = sel;
 }
 
 void Hitbox::update()
@@ -56,11 +36,5 @@ void Hitbox::update()
     else{
         this->remove();
     }
-#if DEBUG_HITBOX
-    //topRect->setPos(mapFromScene(owner->x()+5, owner->y()));
-    //leftRect->setPos(mapFromScene(owner->x()+5, owner->y() + boundingBox.height()-2));
-    //rightRect->setPos(mapFromScene(owner->x(), owner->y() + 2));
-    //bottomRect->setPos(mapFromScene(owner->x() + boundingBox.width() - 5, owner->y() + 2));
-#endif
 }
 
