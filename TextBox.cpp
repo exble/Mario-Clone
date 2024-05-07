@@ -8,7 +8,7 @@ extern Game* game;
 TextBox::TextBox(qreal x, qreal y)
     :x(x), y(y)
 {
-    QFont font("Pixel", 16, QFont::Black);
+    QFont font("Times", 16, QFont::Black);
     setFont(font);
     connect(game->getTick(),SIGNAL(timeout()),this,SLOT(update()));
     setZValue(100);

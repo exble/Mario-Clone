@@ -205,13 +205,25 @@ void Mario::controlHandler()
         }
     }
     if(isKeyPressed[(int)Key::A]){
-        setVx(fmax(vx() - SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), -MAX_SPEED));
+        if(is_big){
+            setVx(fmax(vx() - SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), -MAX_SPEED * 1.4));
+        }
+        else{
+            setVx(fmax(vx() - SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), -MAX_SPEED));
+        }
+
     }
     if(isKeyPressed[(int)Key::S]){
 
     }
     if(isKeyPressed[(int)Key::D]){
-        setVx(fmin(vx() + SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), MAX_SPEED));
+        if(is_big){
+            setVx(fmin(vx() + SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), MAX_SPEED * 1.4));
+        }
+        else{
+            setVx(fmin(vx() + SEC_TO_TICK(WALKING_ACCELERATION_PER_SEC), MAX_SPEED));
+        }
+
     }
 }
 

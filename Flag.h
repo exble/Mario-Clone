@@ -16,6 +16,9 @@ private:
     void stateUpdate();
     void collide_handler();
     int animation_counter;
+    QTimer* EndTimer;
+    bool is_trigger;
+    bool is_end;
     State state;
     Flag* flag;
 };

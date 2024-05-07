@@ -70,6 +70,7 @@
         <file>image/Mario_small/s_mario_stand_R.png</file>
         <file>image/Mario_small/s_mario_stop_L.png</file>
         <file>image/Mario_small/s_mario_stop_R.png</file>
+        <file>image/Replay.png</file>
     </qresource>
     <qresource prefix="/audio">
         <file>audio/01. Ground Theme.mp3</file>

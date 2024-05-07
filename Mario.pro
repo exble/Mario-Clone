@@ -12,6 +12,7 @@ SOURCES += \
     BGM.cpp \
     Block.cpp \
     Bullet.cpp \
+    EndScene.cpp \
     Entity.cpp \
     Flag.cpp \
     Game.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     Block.h \
     Bullet.h \
     Config.h \
+    EndScene.h \
     Entity.h \
     Flag.h \
     Game.h \

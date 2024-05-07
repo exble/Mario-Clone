@@ -19,6 +19,7 @@
 #include "Flag.h"
 #include "Map.h"
 #include "MouseMove.h"
+#include "EndScene.h"
 #include "TextBox.h"
 
 void Game::start()
@@ -98,7 +99,6 @@ void Game::update()
     Score->setDigit(player->score);
     HP->setDigit(player->hp);
     Ammo->setDigit(player->ammo);
-
 }
 
 void Game::playerDyingHandler()
@@ -148,6 +148,21 @@ void Game::resetMap()
         obj->remove();
     }
     Map::setUpMap();
+}
+
+void Game::endGame()
+{
+    EndScene* end_sc;
+    end_sc = new EndScene();
+    view->setScene(end_sc);
+    view->setFixedSize(END_WIDTH, END_HEIGHT);
+}
+
+void Game::cleanUp()
+{
+    delete view;
+    delete scene;
+    delete tick;
 }
 
 QTimer *Game::getTick() const{

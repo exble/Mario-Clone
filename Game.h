@@ -24,6 +24,8 @@ public:
     QGraphicsView *getView() const;
     void setUpBackGround();
     void resetMap();
+    void endGame();
+    void cleanUp();
     MouseMove* mouse;
     QList<Block*> BlockList;
     QList<Object*> ObjectList;

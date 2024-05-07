@@ -6,6 +6,9 @@
 #include "Hitbox.h"
 #include "Game.h"
 #include "Config.h"
+#include <QTimer>
+
+extern Game* game;
 
 Flag::Flag(FlagPart flagpart, Flag* f)
     :flag(f)
@@ -19,6 +22,10 @@ Flag::Flag(FlagPart flagpart, Flag* f)
         break;
     }
     mhitbox = new Hitbox(this);
+    is_trigger = false;
+    EndTimer = new QTimer();
+    EndTimer->setSingleShot(true);
+    is_end = false;
 }
 
 void Flag::update(){
@@ -39,6 +46,16 @@ void Flag::update(){
     {
         setVy(0);
         setPos(x(),97);
+
+    }
+    if(is_trigger){
+        if(is_end && !EndTimer->isActive()){
+            game->endGame();
+        }
+        else if(!is_end && !EndTimer->isActive()){
+            is_end = true;
+            EndTimer->start(3000);
+        }
     }
 }
 
@@ -69,8 +86,9 @@ void Flag::collide_handler()
     Object* collider;
     if(info[Direction::Left].is_collide ){
         collider = info[Direction::Left].collider;
-        if(typeid(*collider) == typeid(Mario)){
+        if(typeid(*collider) == typeid(Mario) && !is_trigger){
             flag->setVy(2);
+            is_trigger = true;
         }
     }
 }
