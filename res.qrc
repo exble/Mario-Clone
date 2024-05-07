@@ -74,5 +74,7 @@
     </qresource>
     <qresource prefix="/audio">
         <file>audio/01. Ground Theme.mp3</file>
+        <file>audio/smb_fireball.wav</file>
+        <file>audio/smb_jump-super.wav</file>
     </qresource>
 </RCC>
