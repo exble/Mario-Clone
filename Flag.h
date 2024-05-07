@@ -19,4 +19,5 @@ private:
     State state;
     Flag* flag;
 };
+
 #endif // Flag_H

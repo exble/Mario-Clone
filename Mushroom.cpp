@@ -1,58 +1,36 @@
-#include <QKeyEvent>
-#include <QDebug>
-
-#include "ToxicMushroom.h"
-#include "Entity.h"
+#include "Mushroom.h"
+#include "Block.h"
 #include "Hitbox.h"
-#include "Game.h"
+#include "Mario.h"
 
-ToxicMushroom::ToxicMushroom()
+Mushroom::Mushroom()
 {
-    setPixmap(QPixmap(":/images/image/toxic mushroom1.png"));
-    walking_annimation = {":/images/image/toxic mushroom1.png",
-                            ":/images/image/toxic mushroom2.png"};
-    walking_state = 0;
-    animation_counter = 0;
+    setPixmap(QPixmap(":/images/image/item/super mushroom.png"));
+    if(rand()%2){
+        setVx(1);
+    }
+    else{
+        setVx(-1);
+    }
     mhitbox = new Hitbox(this);
-    is_enemy = true;
-    setVx(1);
 }
 
-void ToxicMushroom::update(){
-
-
-
+void Mushroom::update()
+{
+    auto collider = collidingItems();
+    Mario* player;
+    foreach(QGraphicsItem* item, collider){
+        player = dynamic_cast<Mario*>(item);
+        if(player){
+            player->beBig();
+            this->remove();
+       }
+    }
     collide_handler();
-
-    // update image according to facing and state
-    update_image();
-
-    // move according to Mario's vx and vy
     move();
-    //qDebug() << "vx: " << vx() << "vy: " << vy();
-    //qDebug() << "x: " << x() << "y: " << y();
-    if(IsoutOfBound()){
-       this->remove();
-    }
 }
 
-
-void ToxicMushroom::update_image(){
-
-    if(walking_state == walking_annimation.size()){
-        walking_state = 0;
-    }
-
-    setPixmap(QPixmap(walking_annimation[walking_state]));
-
-    if(animation_counter == TICK_PER_ANIMATION){
-        walking_state++;
-        animation_counter = 0;
-    }
-    animation_counter++;
-}
-
-void ToxicMushroom::collide_handler()
+void Mushroom::collide_handler()
 {
     collide_info info = getCollide();
     Object* collider;

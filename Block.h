@@ -8,9 +8,11 @@ class Hitbox;
 
 class Block : public Object{
 public:
-    Block(Blocks block_type);
+    Block(Blocks block_type, Items spawn_type = Items::None);
+    void BlockEvent();
 private:
-
+    Blocks block_type;
+    Items spawnType;
 };
 
 

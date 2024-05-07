@@ -18,9 +18,8 @@
 #include "TitleScreen.h"
 #include "Flag.h"
 #include "Map.h"
-Game::Game(){
-
-}
+#include "MouseMove.h"
+#include "TextBox.h"
 
 void Game::start()
 {
@@ -47,7 +46,7 @@ void Game::start()
 
     //init game
     player = new Mario();
-    player->setPos(500, 300);
+    player->setPos(500, 400);
     scene->addItem(player);
     player->setFocus();
 
@@ -58,6 +57,23 @@ void Game::start()
     scroll_limit = 0;
     DeadTimer.setSingleShot(true);
     is_player_dying = false;
+
+    view->setMouseTracking(true);
+    mouse = new MouseMove();
+
+    // display init
+    Score = new TextBox(100, 100);
+    HP = new TextBox(600, 100);
+    Ammo = new TextBox(1100, 100);
+    Score->setTitle("Score");
+    HP->setTitle("HP");
+    Ammo->setTitle("Bullet");
+    Score->setDigit(0);
+    HP->setDigit(3);
+    Ammo->setDigit(0);
+    scene->addItem(Score);
+    scene->addItem(HP);
+    scene->addItem(Ammo);
 }
 
 void Game::update()
@@ -73,14 +89,19 @@ void Game::update()
 
     // focus view on player
     view->horizontalScrollBar()->setValue(scroll_limit);
+    view->verticalScrollBar()->setValue(80);
 
+    //update Score, Hp, and Ammo
+    Score->setDigit(player->score);
+    HP->setDigit(player->hp);
+    Ammo->setDigit(player->ammo);
 
 }
 
 void Game::playerDyingHandler()
 {
     if(!DeadTimer.isActive() && is_player_dying){
-        player->Reset(500, 300);
+        player->Reset(500, 400);
         is_player_dying = false;
         scroll_limit = 0;
     }
@@ -113,6 +134,16 @@ void Game::setUpBackGround()
     scene->setBackgroundBrush(QBrush(QImage(":/images/image/background.png")));
     view->setScene(scene);
 
+}
+
+void Game::resetMap()
+{
+    foreach(Object* obj, ObjectList){
+        if(typeid(*obj) == typeid(Mario) || typeid(*obj) == typeid(Hitbox))
+            continue;
+        obj->remove();
+    }
+    Map::setUpMap();
 }
 
 QTimer *Game::getTick() const{

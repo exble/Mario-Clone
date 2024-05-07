@@ -35,6 +35,11 @@ void Flag::update(){
     if(IsoutOfBound()){
        this->remove();
     }
+    if (y()==98)
+    {
+        setVy(0);
+        setPos(x(),97);
+    }
 }
 
 void Flag::stateUpdate(){
@@ -62,20 +67,10 @@ void Flag::collide_handler()
 {
     collide_info info = getCollide();
     Object* collider;
-    if(info[Direction::Left].is_collide){
+    if(info[Direction::Left].is_collide ){
         collider = info[Direction::Left].collider;
         if(typeid(*collider) == typeid(Mario)){
-            setVy(-2);
-            setPos(info[Direction::Left].collider->x()+50, y());
-        }
-    }
-    if(info[Direction::Down].is_collide){
-        collider = info[Direction::Down].collider;
-        if(typeid(*collider) == typeid(Block)){
-            setVy(0);
-            state = State::Stop;
-            setPos(x(), info[Direction::Down].collider->y() - 50);
-
+            flag->setVy(2);
         }
     }
 }
@@ -84,3 +79,4 @@ void Flag::setState(State newState)
 {
     state = newState;
 }
+

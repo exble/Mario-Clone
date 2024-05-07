@@ -9,7 +9,6 @@ private:
     void __setUpMap();
     static Map& getMap();
 public:
-
     static void setUpMap();
 };
 

@@ -15,9 +15,13 @@ SOURCES += \
     Flag.cpp \
     Game.cpp \
     Hitbox.cpp \
+    Item.cpp \
     Map.cpp \
     Mario.cpp \
+    MouseMove.cpp \
+    Mushroom.cpp \
     Object.cpp \
+    TextBox.cpp \
     TitleScreen.cpp \
     ToxicMushroom.cpp \
     main.cpp
@@ -30,9 +34,13 @@ HEADERS += \
     Flag.h \
     Game.h \
     Hitbox.h \
+    Item.h \
     Map.h \
     Mario.h \
+    MouseMove.h \
+    Mushroom.h \
     Object.h \
+    TextBox.h \
     TitleScreen.h \
     ToxicMushroom.h
 

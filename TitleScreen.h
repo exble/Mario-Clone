@@ -12,9 +12,6 @@
 class Button : public QGraphicsPixmapItem, public QObject{
 public:
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
-
 private:
 
 };

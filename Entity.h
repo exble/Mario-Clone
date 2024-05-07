@@ -4,7 +4,7 @@
 #include "Object.h"
 #include <math.h>
 
-enum class FlagPart{Flag, Pole};
+
 
 class collide_info{
 private:
@@ -34,6 +34,7 @@ public:
     void setVy(float newVy);
     void setSpeed(float Vx, float Vy);
     void stepEvent(Direction dir);
+    void gravity();
 private:
     float _vx, _vy;
 };

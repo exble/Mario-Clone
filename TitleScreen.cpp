@@ -29,13 +29,3 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
     game->getTick()->start();
     delete this;
 }
-
-void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
-{
-    if(event){};
-}
-
-void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
-{
-    if(event){};
-}

@@ -7,7 +7,10 @@
 #include "Bullet.h"
 #include "ToxicMushroom.h"
 #include "Flag.h"
+#include "Item.h"
 #include "Game.h"
+
+
 
 
 extern Game* game;
@@ -25,11 +28,24 @@ Mario::Mario()
                             ":/images/image/Mario_small/s_mario_run2_L.png"};
     walking_annimation_R = {":/images/image/Mario_small/s_mario_run1_R.png",
                             ":/images/image/Mario_small/s_mario_run2_R.png"};
+    walking_annimation_L_big = {":/images/image/Mario_big/mario_L_run0.png",
+                                ":/images/image/Mario_big/mario_L_run1.png",
+                                ":/images/image/Mario_big/mario_L_run2.png"};
+    walking_annimation_R_big = {":/images/image/Mario_big/mario_R_run0.png",
+                                ":/images/image/Mario_big/mario_R_run1.png",
+                                ":/images/image/Mario_big/mario_R_run2.png"};
     animation_state = 0;
     animation_counter = 0;
     is_enemy = false;
+    is_big = false;
+    is_invinsible = false;
+    score = 0;
+    ammo = 0;
+    hp = 3;
     JumpTimer = new QTimer();
     JumpTimer->setSingleShot(true);
+    InvincibleTimer = new QTimer();
+    InvincibleTimer->setSingleShot(true);
     mhitbox = new Hitbox(this);
 }
 
@@ -47,9 +63,9 @@ void Mario::keyPressEvent(QKeyEvent* event){
     if (event->key() == Qt::Key_D){
         isKeyPressed[(int)Key::D] = true;
     }
-    if (event->key() == Qt::Key_Shift){
-        shootBullet();
-    }
+    //if (event->key() == Qt::Key_Shift){
+    //    shootBullet();
+    //}
 }
 
 void Mario::keyReleaseEvent(QKeyEvent *event)
@@ -70,17 +86,45 @@ void Mario::keyReleaseEvent(QKeyEvent *event)
 
 void Mario::Reset(qreal x, qreal y)
 {
+    is_big = false;
+    ammo = 0;
+    hp = 3;
     state = State::Stop;
     setPos(x, y);
+    game->resetMap();
+}
+
+void Mario::addPoint()
+{
+    score++;
+}
+
+void Mario::beBig()
+{
+    setPos(x(), y()-30);
+    is_big = true;
+    hp = std::min(3, hp+1);
+}
+
+void Mario::addBullet()
+{
+    ammo += 3;
 }
 
 void Mario::update(){
+
+
 
     // If Mario is Dead, play death animation and ignore other things
     if(state == State::Dying){
         gravity();
         move();
         return;
+    }
+
+    // if hp is lower or equal to 0 Mario must have died
+    if(hp <= 0){
+        setDead();
     }
 
     //handle collision with blocks and gravity
@@ -137,6 +181,8 @@ void Mario::stateUpdate()
 void Mario::controlHandler()
 {
     //move according to keyboard input
+
+    /*
     if(isKeyPressed[(int)Key::W]){
         if(JumpTimer->isActive()){
             setVy(vy() + 0.2);
@@ -144,6 +190,18 @@ void Mario::controlHandler()
         else if(!(state == State::Jumping || state == State::Falling)){
             JumpTimer->start(JUMP_HOLDING_MAX_MILISEC);
 
+        }
+    }
+    */
+
+    if(isKeyPressed[(int)Key::W]){
+        if(state == State::Stop || state == State::Running){
+            if(is_big){
+                setVy(vy() + JUMP_ACCELERATION_PER_TICK * 1.22);
+            }
+            else{
+                setVy(vy() + JUMP_ACCELERATION_PER_TICK);
+            }
         }
     }
     if(isKeyPressed[(int)Key::A]){
@@ -171,6 +229,7 @@ void Mario::collideHandler()
                 setVy(0);
                 setPos(x(), collider->y()+collider->boundingRect().height());
             }
+            dynamic_cast<Block*>(collider)->BlockEvent();
         }
     }
     if(info[Direction::Down].is_collide){
@@ -182,7 +241,7 @@ void Mario::collideHandler()
             if(vy() < 0){
                 setVy(0);
                 state = State::Stop;
-                setPos(x(), collider->y() - 50);
+                setPos(x(), collider->y() - boundingRect().height());
             }
         }
         if(typeid(*collider) == typeid(ToxicMushroom)){
@@ -199,13 +258,22 @@ void Mario::collideHandler()
 #endif
         collider = info[Direction::Left].collider;
         if(typeid(*collider) == typeid(Block)){
-            setPos(collider->x()+50, y());
+            setPos(collider->x()+collider->boundingRect().width(), y());
             if(vx() < 0){
                 setVx(0);
             }
         }
         if(typeid(*collider) == typeid(ToxicMushroom)){
-            setDead();
+            if(! InvincibleTimer->isActive()){
+                if(is_big){
+                    is_big = false;
+                    InvincibleTimer->start(2000);
+                }
+                else{
+                    InvincibleTimer->start(2000);
+                    hp--;
+                }
+            }
         }
     }
     if(info[Direction::Right].is_collide){
@@ -214,59 +282,102 @@ void Mario::collideHandler()
 #endif
         collider = info[Direction::Right].collider;
         if(typeid(*collider) == typeid(Block)){
-            setPos(collider->x()-50, y());
+            setPos(collider->x() - boundingRect().width(), y());
             if(vx() > 0){
                 setVx(0);
             }
         }
         if(typeid(*collider) == typeid(ToxicMushroom)){
-            setDead();
+            if(! InvincibleTimer->isActive()){
+                if(is_big){
+                    is_big = false;
+                    InvincibleTimer->start(2000);
+                }
+                else{
+                    InvincibleTimer->start(2000);
+                    hp--;
+                }
+            }
         }
     }
 }
 
 void Mario::updateImage(){
     //change image according to state and facing
-    if(state == State::Stop){
-        if(faceTo == Facing::Left){
-            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_L.png"));
+    if(is_big){
+        if(state == State::Stop){
+            if(faceTo == Facing::Left){
+                setPixmap(QPixmap(":/images/image/Mario_big/mario_L_stand.png"));
+            }
+            else{
+                setPixmap(QPixmap(":/images/image/Mario_big/mario_R_stand.png"));
+            }
         }
-        else{
-            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_R.png"));
+        else if (state == State::Running){
+            if(animation_state == walking_annimation_L_big.size()){
+                animation_state = 0;
+            }
+            if(faceTo == Facing::Left){
+                setPixmap(QPixmap(walking_annimation_L_big[animation_state]));
+            }
+            else if(faceTo == Facing::Right){
+                setPixmap(QPixmap(walking_annimation_R_big[animation_state]));
+            }
+            if(animation_counter == TICK_PER_ANIMATION){
+                animation_state++;
+                animation_counter = 0;
+            }
+            animation_counter++;
+        }
+        else if (state == State::Jumping || state == State::Falling){
+            if(faceTo == Facing::Left){
+                setPixmap(QPixmap(":/images/image/Mario_big/mario_L_jump1.png"));
+            }
+            else {
+                setPixmap(QPixmap(":/images/image/Mario_big/mario_R_jump1.png"));
+            }
+        }
+        else if(state == State::Dying){
+            setPixmap(QPixmap(":/images/image/Mario_big/b_mario_die.png"));
         }
     }
-    else if (state == State::Running){
-        if(animation_state == walking_annimation_L.size()){
-            animation_state = 0;
+    else{
+        if(state == State::Stop){
+            if(faceTo == Facing::Left){
+                setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_L.png"));
+            }
+            else{
+                setPixmap(QPixmap(":/images/image/Mario_small/s_mario_stand_R.png"));
+            }
         }
-        if(faceTo == Facing::Left){
-            setPixmap(QPixmap(walking_annimation_L[animation_state]));
+        else if (state == State::Running){
+            if(animation_state == walking_annimation_L.size()){
+                animation_state = 0;
+            }
+            if(faceTo == Facing::Left){
+                setPixmap(QPixmap(walking_annimation_L[animation_state]));
+            }
+            else if(faceTo == Facing::Right){
+                setPixmap(QPixmap(walking_annimation_R[animation_state]));
+            }
+            if(animation_counter == TICK_PER_ANIMATION){
+                animation_state++;
+                animation_counter = 0;
+            }
+            animation_counter++;
         }
-        else if(faceTo == Facing::Right){
-            setPixmap(QPixmap(walking_annimation_R[animation_state]));
+        else if (state == State::Jumping || state == State::Falling){
+            if(faceTo == Facing::Left){
+                setPixmap(QPixmap(":/images/image/Mario_small/s_mario_jump1_L.png"));
+            }
+            else {
+                setPixmap(QPixmap(":/images/image/Mario_small/s_mario_jump1_R.png"));
+            }
         }
-        if(animation_counter == TICK_PER_ANIMATION){
-            animation_state++;
-            animation_counter = 0;
+        else if(state == State::Dying){
+            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_die.png"));
         }
-        animation_counter++;
     }
-    else if (state == State::Jumping || state == State::Falling){
-        if(faceTo == Facing::Left){
-            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_jump1_L.png"));
-        }
-        else {
-            setPixmap(QPixmap(":/images/image/Mario_small/s_mario_jump1_R.png"));
-        }
-    }
-    else if(state == State::Dying){
-        setPixmap(QPixmap(":/images/image/Mario_small/s_mario_die.png"));
-    }
-}
-
-void Mario::gravity()
-{
-    setVy(fmax(vy() - SEC_TO_TICK(GRAVITATIONAL_ACCELERATION_PER_SEC), -8));
 }
 
 void Mario::friction()
@@ -298,8 +409,10 @@ void Mario::boundryCheck()
     }
 }
 
-void Mario::shootBullet()
+void Mario::shootBullet(QPointF location)
 {
+    if(ammo <= 0)
+        return;
     Bullet* bullet = new Bullet(faceTo);
     if(faceTo == Facing::Left){
         bullet->setPos(x()-3, y()+15);
@@ -307,11 +420,18 @@ void Mario::shootBullet()
     else{
         bullet->setPos(x()+53, y()+15);
     }
+    QLineF line;
+    line.setPoints(bullet->pos(), location);
+    bullet->setVx(BULLET_SPEED * cosf((line.angle() * PI)/180.0));
+    bullet->setVy(BULLET_SPEED * sinf((line.angle() * PI)/180.0 ));
     game->getScene()->addItem(bullet);
+    ammo--;
+
 }
 
 void Mario::setDead()
 {
+    hp = 0;
     setVy(4);
     setVx(0);
     setZValue(100);

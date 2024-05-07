@@ -52,6 +52,11 @@ void Entity::setSpeed(float Vx, float Vy)
     setVy(Vy);
 }
 
+void Entity::gravity()
+{
+    setVy(fmax(vy() - SEC_TO_TICK(GRAVITATIONAL_ACCELERATION_PER_SEC), -8));
+}
+
 collide_info Entity::getCollide()
 {
     collide_info info;
