@@ -49,6 +49,10 @@ void Map::__setUpMap()
     pipe->setPos(1150,500);
     scene->addItem(pipe);
     BlockList.push_back(pipe);
+    pipe = new Block(Blocks::Pipe);
+    pipe->setPos(150,500);
+    scene->addItem(pipe);
+    BlockList.push_back(pipe);
 
     Block* stone;
     for(int i=0;i<3;i++){
@@ -99,35 +103,35 @@ void Map::__setUpMap()
     Block* broken;
     for(int i=0;i<3;i++){
         stone = new Block(Blocks::Stone);
-        stone->setPos(2000+i*250,450-i*50);
+        stone->setPos(2050+i*250,450-i*50);
         scene->addItem(stone);
         BlockList.push_back(stone);
 
         broken = new Block(Blocks::Broken);
-        broken->setPos(1950+i*250,450-i*50);
+        broken->setPos(2000+i*250,450-i*50);
         scene->addItem(broken);
         BlockList.push_back(broken);
 
         broken = new Block(Blocks::Broken);
-        broken->setPos(2050+i*250,450-i*50);
+        broken->setPos(2100+i*250,450-i*50);
         scene->addItem(broken);
         BlockList.push_back(broken);
 
         broken = new Block(Blocks::Stone);
-        broken->setPos(1950+i*50,200);
+        broken->setPos(1950+i*50,250);
         scene->addItem(broken);
         BlockList.push_back(broken);
     }
     stone = new Block(Blocks::Stone);
-    stone->setPos(2250,200);
+    stone->setPos(2250,250);
     scene->addItem(stone);
     BlockList.push_back(stone);
     broken = new Block(Blocks::Broken);
-    broken->setPos(2300,200);
+    broken->setPos(2300,250);
     scene->addItem(broken);
     BlockList.push_back(broken);
     broken = new Block(Blocks::Broken);
-    broken->setPos(2200,200);
+    broken->setPos(2200,250);
     scene->addItem(broken);
     BlockList.push_back(broken);
 
@@ -238,11 +242,30 @@ void Map::__setUpMap()
         BlockList.push_back(pipe);
     }
 
+    for(int i=0;i<5;i++){
+        stone = new Block(Blocks::Stone);
+        stone->setPos(i*50+4850,350);
+        scene->addItem(stone);
+        BlockList.push_back(stone);
+    }
+
+    bl = new Block(Blocks::Box);
+    bl->setPos(4950,200);
+    scene->addItem(bl);
+    BlockList.push_back(bl);
+
+
     for(int i=0;i<2;i++){
         norm = new Block(Blocks::Normal);
         norm->setPos(5650+i*50,400);
         scene->addItem(norm);
         BlockList.push_back(norm);
+
+        norm = new Block(Blocks::Normal);
+        norm->setPos(i*200+4850,300);
+        scene->addItem(norm);
+        BlockList.push_back(norm);
+
 
         norm = new Block(Blocks::Normal);
         norm->setPos(6000+i*50,400);
