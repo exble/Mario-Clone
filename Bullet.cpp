@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "Block.h"
 #include "Hitbox.h"
+#include "MovingBlock.h"
 
 Bullet::Bullet(Facing dir)
 {
@@ -26,6 +27,10 @@ void Bullet::update()
         }
         Block* bl = dynamic_cast<Block*>(i);
         if(bl){
+            this->remove();
+        }
+        MovingBlock* mv = dynamic_cast<MovingBlock*>(i);
+        if(mv){
             this->remove();
         }
     }

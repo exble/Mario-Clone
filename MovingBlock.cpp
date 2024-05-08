@@ -18,6 +18,7 @@ MovingBlock::MovingBlock(Blocks block_type)
         break;
     }
     mhitbox = new Hitbox(this);
+    is_enemy = false;
     setVy(2);
 }
 
