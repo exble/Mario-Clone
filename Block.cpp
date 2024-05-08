@@ -39,14 +39,19 @@ void Block::BlockEvent()
     if(block_type == Blocks::Broken){
         this->remove();
     }
+    Item* it = new Item(spawnType);
     if(block_type == Blocks::Normal){
         if(spawnType == Items::Coin){
-
+            it->setPos(x(), y()-BLOCK_SIZE);
+            it->setVy(5);
+            game->getScene()->addItem(it);
+            game->getPlayer()->addPoint();
+            spawnType = Items::None;
         }
     }
     if(block_type == Blocks::Box){
         setPixmap(QPixmap(":/images/image/brick/stone brick.png"));
-        Item* it = new Item(spawnType);
+
         if(spawnType == Items::SuperMushroom){
             Mushroom* mush = new Mushroom();
             mush->setPos(x(), y()-BLOCK_SIZE);

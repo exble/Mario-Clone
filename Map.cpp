@@ -271,29 +271,29 @@ void Map::__setUpMap()
         norm->setPos(3800+i*50,450);
         scene->addItem(norm);
         BlockList.push_back(norm);
-        item = new Item(Items::Coin);
-        item->setPos(3800+i*50,400);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(3800+i*50,400);
+        //scene->addItem(item);
 
         broken = new Block(Blocks::Broken);
         broken->setPos(4150+i*50,250);
         scene->addItem(broken);
         BlockList.push_back(broken);
-        item = new Item(Items::Coin);
-        item->setPos(4150+i*50,200);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(4150+i*50,200);
+        //scene->addItem(item);
 
         broken = new Block(Blocks::Broken);
         broken->setPos(4450+i*50,200);
         scene->addItem(broken);
         BlockList.push_back(broken);
-        item = new Item(Items::Coin);
-        item->setPos(4450+i*50,150);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(4450+i*50,150);
+        //scene->addItem(item);
     }
     for(int i=0;i<2;i++){
 
-        norm = new Block(Blocks::Normal);
+        norm = new Block(Blocks::Normal, Items::Coin);
         norm->setPos(3850+i*50,300);
         scene->addItem(norm);
         BlockList.push_back(norm);
@@ -305,9 +305,9 @@ void Map::__setUpMap()
         broken->setPos(3800+i*150,300);
         scene->addItem(broken);
         BlockList.push_back(broken);
-        item = new Item(Items::Coin);
-        item->setPos(3800+i*150,250);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(3800+i*150,250);
+        //scene->addItem(item);
 
 
         stone = new Block(Blocks::Stone);
@@ -321,10 +321,13 @@ void Map::__setUpMap()
         item = new Item(Items::Coin);
         item->setPos(4350+i*50,400);
         scene->addItem(item);
-        item = new Item(Items::Coin);
-        item->setPos(4300+i*150,450);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(4300+i*150,450);
+        //scene->addItem(item);
     }
+
+
+
     for(int i = 0; i < 16; i++){
         Block* m_block = new Block(Blocks::Floor);
         BlockList.push_back(m_block);

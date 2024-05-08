@@ -497,6 +497,7 @@ void Mario::shootBullet(QPointF location)
 void Mario::setDead()
 {
     hp = 0;
+    score = 0;
     setVy(4);
     setVx(0);
     setZValue(100);
