@@ -62,6 +62,23 @@ void Map::__setUpMap()
         item = new Item(Items::Coin);
         item->setPos(850+i*50, 400);
         scene->addItem(item);
+
+        item = new Item(Items::Coin);
+        item->setPos(350+i*50, 400);
+        scene->addItem(item);
+
+        item = new Item(Items::Coin);
+        item->setPos(1100+i*50, 400);
+        scene->addItem(item);
+    }
+
+    for(int i=0;i<2;i++){
+        item = new Item(Items::Coin);
+        item->setPos(1550+i*50, 350);
+        scene->addItem(item);
+        item = new Item(Items::Coin);
+        item->setPos(1550+i*50, 300);
+        scene->addItem(item);
     }
 
     Block* pipe;
@@ -69,6 +86,8 @@ void Map::__setUpMap()
     pipe->setPos(1150,500);
     scene->addItem(pipe);
     BlockList.push_back(pipe);
+
+
 
     //vicious Flower
     Flower* flower = new Flower();
@@ -87,6 +106,8 @@ void Map::__setUpMap()
         stone->setPos(1350+i*50,550-i*50);
         scene->addItem(stone);
         BlockList.push_back(stone);
+
+
     }
 
     MovingBlock* m_block = new MovingBlock(Blocks::Normal);
@@ -122,6 +143,7 @@ void Map::__setUpMap()
         stone->setPos(1700+i*50,450+i*50);
         scene->addItem(stone);
         BlockList.push_back(stone);
+
     }
     stone = new Block(Blocks::Stone);
     stone->setPos(1700,500);
@@ -146,16 +168,28 @@ void Map::__setUpMap()
         stone->setPos(2050+i*250,450-i*50);
         scene->addItem(stone);
         BlockList.push_back(stone);
+        item = new Item(Items::Coin);
+        item->setPos(2050+i*250,400-i*50);
+        scene->addItem(item);
+
 
         broken = new Block(Blocks::Broken);
         broken->setPos(2000+i*250,450-i*50);
         scene->addItem(broken);
         BlockList.push_back(broken);
+        item = new Item(Items::Coin);
+        item->setPos(2000+i*250,400-i*50);
+        scene->addItem(item);
+
 
         broken = new Block(Blocks::Broken);
         broken->setPos(2100+i*250,450-i*50);
         scene->addItem(broken);
         BlockList.push_back(broken);
+        item = new Item(Items::Coin);
+        item->setPos(2100+i*250,400-i*50);
+        scene->addItem(item);
+
 
         broken = new Block(Blocks::Stone);
         broken->setPos(1950+i*50,250);
@@ -179,6 +213,8 @@ void Map::__setUpMap()
     bl->setPos(2000,100);
     scene->addItem(bl);
     BlockList.push_back(bl);
+
+
 
 
     for(int i=0;i<3;i++){
@@ -209,6 +245,10 @@ void Map::__setUpMap()
         norm->setPos(3300+i*50,400);
         scene->addItem(norm);
         BlockList.push_back(norm);
+        item = new Item(Items::Coin);
+        item->setPos(3300+i*50,350);
+        scene->addItem(item);
+
     }
 
     bl = new Block(Blocks::Box, Items::SuperMushroom);
@@ -231,16 +271,25 @@ void Map::__setUpMap()
         norm->setPos(3800+i*50,450);
         scene->addItem(norm);
         BlockList.push_back(norm);
+        item = new Item(Items::Coin);
+        item->setPos(3800+i*50,400);
+        scene->addItem(item);
 
         broken = new Block(Blocks::Broken);
         broken->setPos(4150+i*50,250);
         scene->addItem(broken);
         BlockList.push_back(broken);
+        item = new Item(Items::Coin);
+        item->setPos(4150+i*50,200);
+        scene->addItem(item);
 
         broken = new Block(Blocks::Broken);
         broken->setPos(4450+i*50,200);
         scene->addItem(broken);
         BlockList.push_back(broken);
+        item = new Item(Items::Coin);
+        item->setPos(4450+i*50,150);
+        scene->addItem(item);
     }
     for(int i=0;i<2;i++){
 
@@ -248,16 +297,33 @@ void Map::__setUpMap()
         norm->setPos(3850+i*50,300);
         scene->addItem(norm);
         BlockList.push_back(norm);
+        item = new Item(Items::Coin);
+        item->setPos(3850+i*50,250);
+        scene->addItem(item);
 
         broken = new Block(Blocks::Broken);
         broken->setPos(3800+i*150,300);
         scene->addItem(broken);
         BlockList.push_back(broken);
+        item = new Item(Items::Coin);
+        item->setPos(3800+i*150,250);
+        scene->addItem(item);
+
 
         stone = new Block(Blocks::Stone);
         stone->setPos(3850+i*50,150);
         scene->addItem(stone);
         BlockList.push_back(stone);
+        item = new Item(Items::Coin);
+        item->setPos(3850+i*50,100);
+        scene->addItem(item);
+
+        item = new Item(Items::Coin);
+        item->setPos(4350+i*50,400);
+        scene->addItem(item);
+        item = new Item(Items::Coin);
+        item->setPos(4300+i*150,450);
+        scene->addItem(item);
     }
     for(int i = 0; i < 16; i++){
         Block* m_block = new Block(Blocks::Floor);
@@ -271,6 +337,10 @@ void Map::__setUpMap()
         pipe->setPos(i*250+4700,500);
         scene->addItem(pipe);
         BlockList.push_back(pipe);
+
+        item = new Item(Items::Coin);
+        item->setPos(4900+i*50,300);
+        scene->addItem(item);
     }
 
 
@@ -323,24 +393,36 @@ void Map::__setUpMap()
         norm->setPos(5650+i*50,400);
         scene->addItem(norm);
         BlockList.push_back(norm);
+        item = new Item(Items::Coin);
+        item->setPos(5650+i*50,350);
+        scene->addItem(item);
 
         norm = new Block(Blocks::Normal);
         norm->setPos(i*200+4850,300);
         scene->addItem(norm);
-        BlockList.push_back(norm);
 
 
         norm = new Block(Blocks::Normal);
         norm->setPos(6000+i*50,400);
         scene->addItem(norm);
         BlockList.push_back(norm);
+        item = new Item(Items::Coin);
+        item->setPos(6000+i*50,350);
+        scene->addItem(item);
     }
+
+    item = new Item(Items::Coin);
+    item->setPos(6700,250);
+    scene->addItem(item);
 
     for(int i=0;i<6;i++){
         stone = new Block(Blocks::Stone);
         stone->setPos(6400+i*50,550-i*50);
         scene->addItem(stone);
         BlockList.push_back(stone);
+        item = new Item(Items::Coin);
+        item->setPos(6400+i*50,500-i*50);
+        scene->addItem(item);
     }
     for(int i=0;i<5;i++){
         stone = new Block(Blocks::Stone);
