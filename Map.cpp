@@ -67,15 +67,15 @@ void Map::__setUpMap()
         item->setPos(350+i*50, 400);
         scene->addItem(item);
 
-        item = new Item(Items::Coin);
-        item->setPos(1100+i*50, 400);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(1100+i*50, 400);
+        //scene->addItem(item);
     }
 
     for(int i=0;i<2;i++){
-        item = new Item(Items::Coin);
-        item->setPos(1550+i*50, 350);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(1550+i*50, 350);
+        //scene->addItem(item);
         item = new Item(Items::Coin);
         item->setPos(1550+i*50, 300);
         scene->addItem(item);
@@ -297,9 +297,9 @@ void Map::__setUpMap()
         norm->setPos(3850+i*50,300);
         scene->addItem(norm);
         BlockList.push_back(norm);
-        item = new Item(Items::Coin);
-        item->setPos(3850+i*50,250);
-        scene->addItem(item);
+        //item = new Item(Items::Coin);
+        //item->setPos(3850+i*50,250);
+        //scene->addItem(item);
 
         broken = new Block(Blocks::Broken);
         broken->setPos(3800+i*150,300);
@@ -383,12 +383,12 @@ void Map::__setUpMap()
 
     m_block = new MovingBlock(Blocks::Normal);
     m_block->setPos(5350, 300);
-    m_block->setVy(-10);
+    m_block->setVy(-7);
     scene->addItem(m_block);
 
     m_block = new MovingBlock(Blocks::Normal);
     m_block->setPos(5400, 300);
-    m_block->setVy(-10);
+    m_block->setVy(-7);
     scene->addItem(m_block);
 
     for(int i=0;i<2;i++){
