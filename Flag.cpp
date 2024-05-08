@@ -6,6 +6,7 @@
 #include "Hitbox.h"
 #include "Game.h"
 #include "Config.h"
+#include "Config.h"
 #include <QTimer>
 
 extern Game* game;
@@ -26,6 +27,9 @@ Flag::Flag(FlagPart flagpart, Flag* f)
     EndTimer = new QTimer();
     EndTimer->setSingleShot(true);
     is_end = false;
+
+    endSound.setSource(QUrl("qrc:/audio/audio/smb_stage_clear.wav"));
+    endSound.setVolume(0.75);
 }
 
 void Flag::update(){
@@ -89,6 +93,8 @@ void Flag::collide_handler()
         if(typeid(*collider) == typeid(Mario) && !is_trigger){
             flag->setVy(2);
             is_trigger = true;
+
+            endSound.play();
         }
     }
 }
