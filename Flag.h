@@ -3,6 +3,7 @@
 
 
 #include "Entity.h"
+#include <QSoundEffect>
 
 class Hitbox;
 
@@ -13,6 +14,7 @@ public:
     void setState(State newState);
     Facing faceTo;
 private:
+    QSoundEffect endSound;
     void stateUpdate();
     void collide_handler();
     int animation_counter;
