@@ -93,7 +93,7 @@ void Flag::collide_handler()
         if(typeid(*collider) == typeid(Mario) && !is_trigger){
             flag->setVy(2);
             is_trigger = true;
-
+            game->backgroundMusic.stop();
             endSound.play();
         }
     }
