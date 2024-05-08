@@ -35,12 +35,13 @@ public:
     TextBox* Score;
     TextBox* HP;
     TextBox* Ammo;
+    BGM backgroundMusic;
 private:
     QTimer* tick;
     QTimer DeadTimer;
     QTimer mobspawn;
     Mario* player;
-    BGM backgroundMusic;
+
     bool is_player_dying;
     QGraphicsScene* scene;
     QGraphicsView* view;
