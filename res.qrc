@@ -76,5 +76,6 @@
         <file>audio/01. Ground Theme.mp3</file>
         <file>audio/smb_fireball.wav</file>
         <file>audio/smb_jump-super.wav</file>
+        <file>audio/smb_stage_clear.wav</file>
     </qresource>
 </RCC>
