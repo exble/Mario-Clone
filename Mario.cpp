@@ -207,7 +207,7 @@ void Mario::controlHandler()
     */
 
     if(isKeyPressed[(int)Key::W]){
-        if(state == State::Stop || state == State::Running){
+        if((state == State::Stop || state == State::Running) && !JumpTimer->isActive()){
             jumpSound.play();
             if(is_big){
                 setVy(vy() + JUMP_ACCELERATION_PER_TICK * 1.22);
@@ -215,6 +215,7 @@ void Mario::controlHandler()
             else{
                 setVy(vy() + JUMP_ACCELERATION_PER_TICK);
             }
+            JumpTimer->start(50);
         }
     }
     if(isKeyPressed[(int)Key::A]){
