@@ -60,7 +60,7 @@ void Mushroom::collide_handler()
         if(typeid(*collider) == typeid(Block)){
             if(vx() < 0){
                 setVx(-vx());
-                setPos(info[Direction::Left].collider->x()+50, y());
+                setPos(info[Direction::Left].collider->x()+collider->boundingRect().width(), y());
             }
         }
 

@@ -25,7 +25,7 @@ Block::Block(Blocks block_type, Items item_type)
         setPixmap(QPixmap(":/images/image/brick/normal brick.png"));
         break;
     case Blocks::Pipe:
-        setPixmap(QPixmap(":/images/image/brick/water pipe.png"));
+        setPixmap(QPixmap(":/images/image/brick/water pipe.png").scaled(100, 100));
         break;
     case Blocks::Stone:
         setPixmap(QPixmap(":/images/image/brick/stone brick.png"));
