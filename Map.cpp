@@ -299,6 +299,10 @@ void Map::__setUpMap()
         BlockList.push_back(stone);
     }
 
+    toxic = new ToxicMushroom();
+    toxic->setPos(4950, 300);
+    scene->addItem(toxic);
+
     bl = new Block(Blocks::Box, Items::SuperMushroom);
     bl->setPos(4950,200);
     scene->addItem(bl);
@@ -389,11 +393,13 @@ Map& Map::getMap()
 
 void Map::update()
 {
-    if(game->getPlayer()->x() > 2900 && game->getPlayer()->x() < 2910){
+    static bool event_trigger_1 = false;
+    if(game->getPlayer()->x() > 2900 && game->getPlayer()->x() < 2905 && !event_trigger_1){
         ToxicMushroom* toxic = new ToxicMushroom();
-        toxic->setPos(3950, 450);
+        toxic->setPos(3950, 400);
         toxic->setVx(-1);
         game->getScene()->addItem(toxic);
+        event_trigger_1 = true;
     }
 }
 
